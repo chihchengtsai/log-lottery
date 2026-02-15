@@ -5,8 +5,8 @@ export function getToken() {
 }
 
 /**
- * 获取用户浏览器唯一标识
- * @returns {Promise<string>} 唯一标识符
+ * 獲取用戶瀏覽器唯一標識
+ * @returns {Promise<string>} 唯一標識符
  */
 export async function getUniqueSignature() {
     const fp = await FingerprintJS.load()
@@ -14,7 +14,7 @@ export async function getUniqueSignature() {
     return result.visitorId
 }
 
-// 获取origin url
+// 獲取origin url
 export function getOriginUrl() {
     return window.location.origin
 }

@@ -12,7 +12,7 @@ import UploadDialog from './components/UploadDialog.vue'
 const { t } = useI18n()
 const globalConfig = useStore().globalConfig
 const { getImageList: localImageList } = storeToRefs(globalConfig)
-const imgUploadToast = ref(0) // 0是不显示，1是成功，2是失败,3是不是图片
+const imgUploadToast = ref(0) // 0是不顯示，1是成功，2是失敗,3是不是圖片
 const imageDbStore = localforage.createInstance({
     name: 'imgStore',
 })

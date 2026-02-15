@@ -38,17 +38,17 @@ export function useGsap(scrollContainerRef: any, liRefs: any, isScroll: Ref<bool
         const scrollHeight = scrollContainerRef.value.scrollHeight
         const scrollTop = scrollContainerRef.value.scrollTop
         const containerHeight = scrollContainerRef.value.clientHeight
-        // 滚动滑到底部
+        // 滾動滑到底部
         if (scrollTop + containerHeight >= scrollHeight - 10) {
             showDownButton.value = false
             showUpButton.value = true
         }
-        // 在中间
+        // 在中間
         else if (scrollTop && scrollTop + containerHeight < scrollHeight) {
             showDownButton.value = true
             showUpButton.value = true
         }
-        // 滚动滑到顶部
+        // 滾動滑到頂部
         else {
             showDownButton.value = true
             showUpButton.value = false

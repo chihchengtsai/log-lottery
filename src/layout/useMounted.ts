@@ -23,7 +23,7 @@ export function useMounted(tipDialog: Ref<any>) {
     const enableWebsocket = import.meta.env.VITE_ENABLE_WEBSOCKET
     const websocketData = enableWebsocket === 'true' ? useWebsocket() : { data: ref(null) }
     const { data } = websocketData
-    // 设置当前奖列表
+    // 設置當前獎列表
     function setCurrentPrize() {
         if (prizeList.value.length <= 0) {
             return
@@ -40,7 +40,7 @@ export function useMounted(tipDialog: Ref<any>) {
             }
         }
     }
-    // 判断是否手机端访问
+    // 判斷是否手機端訪問
     function judgeMobile() {
         const ua = navigator.userAgent
         const isAndroid = ua.includes('Android') || ua.includes('Adr')
@@ -50,7 +50,7 @@ export function useMounted(tipDialog: Ref<any>) {
 
         return isAndroid || isIOS
     }
-    // 判断是否chrome或者edge访问
+    // 判斷是否chrome或者edge訪問
     function judgeChromeOrEdge() {
         const ua = navigator.userAgent
         const isChrome = ua.includes('Chrome')

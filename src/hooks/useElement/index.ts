@@ -61,7 +61,7 @@ export function useElementStyle(props: IUseElementStyle) {
     }
 
     element.children[2].style.fontSize = `${textSize * scale * 0.5}px`
-    // 设置部门和身份的默认值
+    // 設置所屬扶輪社和身份的預設值
     element.children[2].innerHTML = ''
     if (person.department || person.identity) {
         element.children[2].innerHTML = `${person.department ? person.department : ''}<br/>${person.identity ? person.identity : ''}`
@@ -260,10 +260,10 @@ const cardRule: CardRule = {
     },
 }
 /**
- * @description 设置抽中卡片的位置
+ * @description 設置抽中卡片的位置
  */
 function createRuleForCount(count: number) {
-    // 动态生成规则：行数在 3-5 之间，尽可能均匀分配
+    // 動態生成規則：行數在 3-5 之間，儘可能均勻分配
     const len = Math.min(5, Math.max(3, Math.ceil(count / 10)))
     const base = Math.floor(count / len)
     let rem = count % len
@@ -292,14 +292,14 @@ export function useElementPosition(
     }
     const ruleObj = cardRule[totalCount] ?? createRuleForCount(totalCount)
     const { scale, rule, length } = ruleObj
-    // 计算缩放后的卡片尺寸
+    // 計算縮放後的卡片尺寸
     const scaledCardWidth = cardSize.width * scale
     const scaledCardHeight = cardSize.height * scale
-    // 计算当前卡片在第几行（从0开始）
+    // 計算當前卡片在第幾行（從0開始）
     let currentRow = 0
-    let cardIndexInRow = cardIndex // 当前卡片在其所在行中的索引
+    let cardIndexInRow = cardIndex // 當前卡片在其所在行中的索引
 
-    // 根据规则确定卡片在哪一行及行内索引
+    // 根據規則確定卡片在哪一行及行內索引
     let cumulativeCount = 0
     for (let i = 0; i < rule.length; i++) {
         if (cardIndex < cumulativeCount + rule[i]) {
@@ -310,23 +310,23 @@ export function useElementPosition(
         cumulativeCount += rule[i]
     }
 
-    // 计算当前行的卡片数量
+    // 計算當前行的卡片數量
     const cardsInCurrentRow = rule[currentRow]
 
-    // 计算每行的垂直中心位置
-    const verticalSpacing = scaledCardHeight * 1.1 // 垂直间距基于缩放后的高度
-    // 计算整体高度并调整居中
+    // 計算每行的垂直中心位置
+    const verticalSpacing = scaledCardHeight * 1.1 // 垂直間距基於縮放後的高度
+    // 計算整體高度並調整居中
     const totalHeight = (length - 1) * verticalSpacing + scaledCardHeight // 包含卡片本身的高度
     const centerYOffset = -totalHeight / 2
 
-    // 修改此处逻辑，确保当length=2时，两行围绕中心点对称分布
+    // 修改此處邏輯，確保當length=2時，兩行圍繞中心點對稱分佈
     centerPosition.y = windowSize.height / 2 - totalHeight / 2
 
-    yTable = centerPosition.y + currentRow * verticalSpacing + centerYOffset // 添加卡片高度的一半作为修正
-    // 计算当前行的水平居中偏移
-    const horizontalSpacing = scaledCardWidth * 1.2 // 水平间距基于缩放后的宽度
+    yTable = centerPosition.y + currentRow * verticalSpacing + centerYOffset // 添加卡片高度的一半作爲修正
+    // 計算當前行的水平居中偏移
+    const horizontalSpacing = scaledCardWidth * 1.2 // 水平間距基於縮放後的寬度
     const rowWidth = (cardsInCurrentRow - 1) * horizontalSpacing
-    const offsetX = -rowWidth / 2 // 行内水平居中
+    const offsetX = -rowWidth / 2 // 行內水平居中
 
     xTable = centerPosition.x + offsetX + cardIndexInRow * horizontalSpacing
 

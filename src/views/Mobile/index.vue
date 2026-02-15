@@ -5,13 +5,13 @@ import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useViewModel } from './useViewModel'
 
 dayjs.extend(relativeTime)
-dayjs.locale('zh-cn') // 设置为中文
+dayjs.locale('zh-cn') // 設置爲中文
 
 const textareaRef = ref()
 const messageArrayRef = ref()
-// 存储定时器ID
+// 存儲定時器ID
 const timer = ref()
-// 创建一个响应式的时间戳，用于触发更新
+// 創建一個響應式的時間戳，用於觸發更新
 const nowTimestamp = ref(Date.now())
 const { sendMsg, userInputMsg, userMsgArray } = useViewModel()
 async function handleEnterSend() {
@@ -29,7 +29,7 @@ function scrollToBottom() {
     }, 0)
 }
 
-// 带有实时更新的时间显示
+// 帶有實時更新的時間顯示
 const formattedMessages = computed(() => {
     const _ = nowTimestamp.value
     return userMsgArray.value.map(item => ({
@@ -44,7 +44,7 @@ watch(() => userMsgArray.value.length, () => {
 onMounted(() => {
     timer.value = setInterval(() => {
         nowTimestamp.value = Date.now()
-    }, 60000) // 每分钟更新一次
+    }, 60000) // 每分鐘更新一次
 })
 onUnmounted(() => {
     if (timer.value) {
@@ -57,7 +57,7 @@ onUnmounted(() => {
   <div class="flex flex-col justify-around py-4">
     <div class="h-12 drop-shadow-md shadow-lg">
       <h2 class="text-center text-lg font-bold">
-        发送弹幕
+        發送彈幕
       </h2>
     </div>
     <div ref="messageArrayRef" class="overflow-y-auto h-[calc(100vh-15rem)]">
@@ -75,10 +75,10 @@ onUnmounted(() => {
       </ul>
     </div>
     <div class="border-none rounded-2xl bg-base-200 mx-2 p-2 flex flex-col gap-3 items-center justify-center shadow-md mb-8 h-48">
-      <textarea ref="textareaRef" v-model="userInputMsg" class="textarea w-full rounded-xl border-none bg-transparent focus:outline-none focus:ring-0" placeholder="发送弹幕 | 只展示您发送过的弹幕" rows="5" cols="50" @keydown.enter.prevent="handleEnterSend" />
+      <textarea ref="textareaRef" v-model="userInputMsg" class="textarea w-full rounded-xl border-none bg-transparent focus:outline-none focus:ring-0" placeholder="發送彈幕 | 只展示您發送過的彈幕" rows="5" cols="50" @keydown.enter.prevent="handleEnterSend" />
       <div class="w-full flex justify-end">
         <button class="btn btn-primary w-24 mb-4" @click="handleEnterSend">
-          发送
+          發送
         </button>
       </div>
     </div>

@@ -2,7 +2,7 @@
 import type { InjectionKey, Ref } from 'vue'
 import { ref } from 'vue'
 
-// 定义 Loading 配置类型
+// 定義 Loading 配置類型
 export interface LoadingOptions {
     visible: Ref<boolean>
     text: Ref<string>
@@ -13,17 +13,17 @@ export interface LoadingOptions {
     hide: () => void
 }
 
-// 注入密钥（Symbol 确保唯一性）
+// 注入密鑰（Symbol 確保唯一性）
 export const loadingKey: InjectionKey<LoadingOptions> = Symbol('loading')
 
-// 全局状态（单例）
+// 全局狀態（單例）
 const visible = ref(false)
 const text = ref('')
 const fullscreen = ref(true)
 const zIndex = ref(9999)
 const count = ref(0)
 
-// 显示 Loading
+// 顯示 Loading
 function show(options?: Partial<{ text: string, fullscreen: boolean, zIndex: number }>) {
     count.value++
     if (count.value > 1)
@@ -36,7 +36,7 @@ function show(options?: Partial<{ text: string, fullscreen: boolean, zIndex: num
     }
 }
 
-// 隐藏 Loading
+// 隱藏 Loading
 function hide() {
     if (count.value <= 0)
         return
@@ -49,7 +49,7 @@ function hide() {
     }
 }
 
-// 导出全局状态（供根组件提供）
+// 導出全域狀態（供根組件提供）
 export const loadingState: LoadingOptions = {
     visible,
     text,

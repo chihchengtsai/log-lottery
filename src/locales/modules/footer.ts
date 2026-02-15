@@ -4,8 +4,8 @@ export const footerEn = {
 }
 
 export const footerZhCn = {
-    'self-reflection': '行有不得，反求诸己',
-    'thiefEasy': '破山中贼易，破心中贼难',
+    'self-reflection': '榮耀扶輪，團結向善',
+    'thiefEasy': 'UNITE FOR GOOD',
 }
 
 export const footer = {

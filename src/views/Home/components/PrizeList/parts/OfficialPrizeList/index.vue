@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import type { IPrizeConfig } from '@/types/storeType'
 import { ref, watch } from 'vue'
-import defaultPrizeImage from '@/assets/images/龙.png'
+import defaultPrizeImage from '@/assets/images/龍.png'
 import { useGsap } from './useGsap'
 
 const props = defineProps<{
@@ -24,14 +24,14 @@ const {
     handleScroll,
 } = useGsap(scrollContainerRef, liRefs, isScroll, prizeShow, props.temporaryPrizeShow)
 
-// 获取ulContainerRef的高度
+// 獲取ulContainerRef的高度
 function getUlContainerHeight() {
     if (ulContainerRef.value) {
         return ulContainerRef.value.offsetHeight
     }
     return 0
 }
-// 获取scrollContainerRef的高度
+// 獲取scrollContainerRef的高度
 function getScrollContainerHeight() {
     if (scrollContainerRef.value) {
         return scrollContainerRef.value.offsetHeight

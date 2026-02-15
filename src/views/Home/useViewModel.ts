@@ -23,7 +23,7 @@ import { confettiFire, createSphereVertices, createTableVertices, getRandomEleme
 const maxAudioLimit = 10
 export function useViewModel() {
     const toast = useToast()
-    // store里面存储的值
+    // store裏面存儲的值
     const { personConfig, globalConfig, prizeConfig } = useStore()
     const {
         getAllPersonList: allPersonList,
@@ -62,8 +62,8 @@ export function useViewModel() {
         table: [],
         sphere: [],
     }
-    // 页面数据初始值
-    const currentStatus = ref<LotteryStatus>(LotteryStatus.init) // 0为初始状态， 1为抽奖准备状态，2为抽奖中状态，3为抽奖结束状态
+    // 頁面數據初始值
+    const currentStatus = ref<LotteryStatus>(LotteryStatus.init) // 0爲初始狀態， 1爲抽獎準備狀態，2爲抽獎中狀態，3爲抽獎結束狀態
     const tableData = ref<any[]>([])
     const luckyTargets = ref<any[]>([])
     const luckyCardList = ref<number[]>([])
@@ -74,7 +74,7 @@ export function useViewModel() {
     const animationFrameId = ref<any>(null)
     const playingAudios = ref<HTMLAudioElement[]>([])
 
-    // 抽奖音乐相关
+    // 抽獎音樂相關
     const lotteryMusic = ref<HTMLAudioElement | null>(null)
 
     function initThreeJs() {
@@ -168,10 +168,10 @@ export function useViewModel() {
 
             objects.value.push(object)
         }
-        // 创建横铺的界面
+        // 創建橫鋪的界面
         const tableVertices = createTableVertices({ tableData: tableData.value, rowCount: rowCount.value, cardSize: cardSize.value })
         targets.table = tableVertices
-        // 创建球体
+        // 創建球體
         const sphereVertices = createSphereVertices({ objectsLength: objects.value.length })
         targets.sphere = sphereVertices
         window.addEventListener('resize', onWindowResize, false)
@@ -184,9 +184,9 @@ export function useViewModel() {
         }
     }
     /**
-     * @description: 位置变换
-     * @param targets 目标位置
-     * @param duration 持续时间
+     * @description: 位置變換
+     * @param targets 目標位置
+     * @param duration 持續時間
      */
     function transform(targets: any[], duration: number) {
         TWEEN.removeAll()
@@ -234,7 +234,7 @@ export function useViewModel() {
                     })
             }
 
-            // 这个补间用来在位置与旋转补间同步执行，通过onUpdate在每次更新数据后渲染scene和camera
+            // 這個補間用來在位置與旋轉補間同步執行，通過onUpdate在每次更新數據後渲染scene和camera
             new TWEEN.Tween({})
                 .to({}, duration * 2)
                 .onUpdate(render)
@@ -246,7 +246,7 @@ export function useViewModel() {
         })
     }
     /**
-     * @description: 窗口大小改变时重新设置渲染器的大小
+     * @description: 窗口大小改變時重新設置渲染器的大小
      */
     function onWindowResize() {
         camera.value.aspect = window.innerWidth / window.innerHeight
@@ -264,14 +264,14 @@ export function useViewModel() {
         if (controls.value) {
             controls.value.update()
         }
-        // 设置自动旋转
-        // 设置相机位置
+        // 設置自動旋轉
+        // 設置相機位置
         animationFrameId.value = requestAnimationFrame(animation)
     }
     /**
-     * @description: 旋转的动画
-     * @param rotateY 绕y轴旋转圈数
-     * @param duration 持续时间，单位秒
+     * @description: 旋轉的動畫
+     * @param rotateY 繞y軸旋轉圈數
+     * @param duration 持續時間，單位秒
      */
     function rollBall(rotateY: number, duration: number) {
         TWEEN.removeAll()
@@ -302,7 +302,7 @@ export function useViewModel() {
         })
     }
     /**
-     * @description: 视野转回正面
+     * @description: 視野轉回正面
      */
     function resetCamera() {
         new TWEEN.Tween(camera.value.position)
@@ -343,7 +343,7 @@ export function useViewModel() {
     }
 
     /**
-     * @description: 开始抽奖音乐
+     * @description: 開始抽獎音樂
      */
     function startLotteryMusic() {
         if (!isPlayWinMusic.value) {
@@ -359,12 +359,12 @@ export function useViewModel() {
         lotteryMusic.value.volume = 0.7
 
         lotteryMusic.value.play().catch((error) => {
-            console.error('播放抽奖音乐失败:', error)
+            console.error('播放抽獎音樂失敗:', error)
         })
     }
 
     /**
-     * @description: 停止抽奖音乐
+     * @description: 停止抽獎音樂
      */
     function stopLotteryMusic() {
         if (!isPlayWinMusic.value) {
@@ -377,61 +377,61 @@ export function useViewModel() {
     }
 
     /**
-     * @description: 播放结束音效
+     * @description: 播放結束音效
      */
     function playEndSound() {
         if (!isPlayWinMusic.value) {
             return
         }
-        console.log('准备播放结束音效', dongSound)
+        console.log('準備播放結束音效', dongSound)
 
-        // 清理已结束的音频
+        // 清理已結束的音頻
         playingAudios.value = playingAudios.value.filter(audio => !audio.ended)
 
         try {
             const endSound = new Audio(dongSound)
             endSound.volume = 1.0
 
-            // 简化播放逻辑
+            // 簡化播放邏輯
             const playPromise = endSound.play()
 
             if (playPromise) {
                 playPromise
                     .then(() => {
-                        console.log('结束音效播放成功')
+                        console.log('結束音效播放成功')
                         playingAudios.value.push(endSound)
                     })
                     .catch((err) => {
-                        console.error('播放失败:', err.name, err.message)
+                        console.error('播放失敗:', err.name, err.message)
                         if (err.name === 'NotAllowedError') {
-                            console.warn('自动播放被阻止，需用户交互后播放')
+                            console.warn('自動播放被阻止，需用戶交互後播放')
                         }
                     })
             }
 
             endSound.onended = () => {
-                console.log('结束音效播放完成')
+                console.log('結束音效播放完成')
                 const index = playingAudios.value.indexOf(endSound)
                 if (index > -1)
                     playingAudios.value.splice(index, 1)
             }
         }
         catch (error) {
-            console.error('创建音频对象失败:', error)
+            console.error('創建音頻對象失敗:', error)
         }
     }
 
     /**
-     * @description: 重置音频状态
+     * @description: 重設音頻狀態
      */
     function resetAudioState() {
         if (!isPlayWinMusic.value) {
             return
         }
-        // 停止抽奖音乐
+        // 停止抽獎音樂
         stopLotteryMusic()
 
-        // 清理所有正在播放的音频
+        // 清理所有正在播放的音頻
         playingAudios.value.forEach((audio) => {
             if (!audio.ended && !audio.paused) {
                 audio.pause()
@@ -441,27 +441,27 @@ export function useViewModel() {
     }
 
     /**
-     * @description: 开始抽奖，由横铺变换为球体（或其他图形）
-     * @returns 随机抽取球数据
+     * @description: 開始抽獎，由橫鋪變換爲球體（或其他圖形）
+     * @returns 隨機抽取球數據
      */
-    /// <IP_ADDRESS>description 进入抽奖准备状态
+    /// <IP_ADDRESS>description 進入抽獎準備狀態
     async function enterLottery() {
         if (!canOperate.value) {
             return
         }
 
-        // 重置音频状态
+        // 重設音頻狀態
         resetAudioState()
 
-        // 预加载音频资源以解决浏览器自动播放策略
+        // 預加載音頻資源以解決瀏覽器自動播放策略
         try {
             const audioContext = window.AudioContext || (window as any).webkitAudioContext
             if (audioContext) {
-                console.log('音频上下文可用')
+                console.log('音頻上下文可用')
             }
         }
         catch (e) {
-            console.warn('音频上下文不可用:', e)
+            console.warn('音頻上下文不可用:', e)
         }
 
         if (!intervalTimer.value) {
@@ -480,13 +480,13 @@ export function useViewModel() {
         rollBall(0.1, 2000)
     }
     /**
-     * @description 开始抽奖
+     * @description 開始抽獎
      */
     function startLottery() {
         if (!canOperate.value) {
             return
         }
-        // 验证是否已抽完全部奖项
+        // 驗證是否已抽完全部獎項
         if (currentPrize.value.isUsed || !currentPrize.value) {
             toast.open({
                 message: i18n.global.t('error.personIsAllDone'),
@@ -499,7 +499,7 @@ export function useViewModel() {
         }
         // personPool.value = currentPrize.value.isAll ? notThisPrizePersonList.value : notPersonList.value
         personPool.value = currentPrize.value.isAll ? [...notThisPrizePersonList.value] : [...notPersonList.value]
-        // 验证抽奖人数是否还够
+        // 驗證抽獎人數是否還夠
         if (personPool.value.length < currentPrize.value.count - currentPrize.value.isUsedCount) {
             toast.open({
                 message: i18n.global.t('error.personNotEnough'),
@@ -510,22 +510,22 @@ export function useViewModel() {
 
             return
         }
-        // 默认置为单次抽奖最大个数
+        // 默認置爲單次抽獎最大個數
         luckyCount.value = SINGLE_TIME_MAX_PERSON_COUNT
-        // 还剩多少人未抽
+        // 還剩多少人未抽
         let leftover = currentPrize.value.count - currentPrize.value.isUsedCount
         const customCount = currentPrize.value.separateCount
         if (customCount && customCount.enable && customCount.countList.length > 0) {
             for (let i = 0; i < customCount.countList.length; i++) {
                 if (customCount.countList[i].isUsedCount < customCount.countList[i].count) {
-                    // 根据自定义人数来抽取
+                    // 根據自定義人數來抽取
                     leftover = customCount.countList[i].count - customCount.countList[i].isUsedCount
                     break
                 }
             }
         }
         luckyCount.value = leftover < luckyCount.value ? leftover : luckyCount.value
-        // 重构抽奖函数
+        // 重構抽獎函數
         luckyTargets.value = getRandomElements(personPool.value, luckyCount.value)
         luckyTargets.value.forEach((item) => {
             const index = personPool.value.findIndex(person => person.id === item.id)
@@ -535,14 +535,14 @@ export function useViewModel() {
         })
 
         toast.open({
-            // message: `现在抽取${currentPrize.value.name} ${leftover}人`,
+            // message: `現在抽取${currentPrize.value.name} ${leftover}人`,
             message: i18n.global.t('error.startDraw', { count: currentPrize.value.name, leftover }),
             type: 'default',
             position: 'top-right',
             duration: 8000,
         })
 
-        // 开始播放抽奖音乐
+        // 開始播放抽獎音樂
         startLotteryMusic()
 
         currentStatus.value = LotteryStatus.running
@@ -556,16 +556,16 @@ export function useViewModel() {
         }
     }
     /**
-     * @description: 停止抽奖，抽出幸运人
+     * @description: 停止抽獎，抽出幸運人
      */
     async function stopLottery() {
         if (!canOperate.value) {
             return
         }
-        // 停止抽奖音乐
+        // 停止抽獎音樂
         stopLotteryMusic()
 
-        // 播放结束音效
+        // 播放結束音效
         playEndSound()
 
         //   clearInterval(intervalTimer.value)
@@ -629,16 +629,16 @@ export function useViewModel() {
                 })
         })
     }
-    // 播放音频，中将卡片越多audio对象越多，声音越大
+    // 播放音頻，中將卡片越多audio對象越多，聲音越大
     function playWinMusic() {
         if (!isPlayWinMusic.value) {
             return
         }
-        // 清理已结束的音频
+        // 清理已結束的音頻
         playingAudios.value = playingAudios.value.filter(audio => !audio.ended && !audio.paused)
 
         if (playingAudios.value.length > maxAudioLimit) {
-            console.log('音频播放数量已达到上限，请勿重复播放')
+            console.log('音頻播放數量已達到上限，請勿重複播放')
             return
         }
 
@@ -648,7 +648,7 @@ export function useViewModel() {
         playingAudios.value.push(enterNewAudio)
         enterNewAudio.play()
             .then(() => {
-                // 当音频播放结束后，从数组中移除
+                // 當音頻播放結束後，從數組中移除
                 enterNewAudio.onended = () => {
                     const index = playingAudios.value.indexOf(enterNewAudio)
                     if (index > -1) {
@@ -657,15 +657,15 @@ export function useViewModel() {
                 }
             })
             .catch((error) => {
-                console.error('播放音频失败:', error)
-                // 如果播放失败，也从数组中移除
+                console.error('播放音頻失敗:', error)
+                // 如果播放失敗，也從數組中移除
                 const index = playingAudios.value.indexOf(enterNewAudio)
                 if (index > -1) {
                     playingAudios.value.splice(index, 1)
                 }
             })
 
-        // 播放错误时从数组中移除
+        // 播放錯誤時從數組中移除
         enterNewAudio.onerror = () => {
             const index = playingAudios.value.indexOf(enterNewAudio)
             if (index > -1) {
@@ -674,7 +674,7 @@ export function useViewModel() {
         }
     }
     /**
-     * @description: 继续,意味着这抽奖作数，计入数据库
+     * @description: 繼續,意味着這抽獎作數，計入數據庫
      */
     async function continueLottery() {
         if (!canOperate.value) {
@@ -700,10 +700,10 @@ export function useViewModel() {
         await enterLottery()
     }
     /**
-     * @description: 放弃本次抽奖，回到初始状态
+     * @description: 放棄本次抽獎，回到初始狀態
      */
     function quitLottery() {
-        // 停止抽奖音乐
+        // 停止抽獎音樂
         stopLotteryMusic()
 
         enterLottery()
@@ -711,18 +711,18 @@ export function useViewModel() {
     }
 
     /**
-     * @description: 随机替换卡片中的数据（不改变原有的值，只是显示）
+     * @description: 隨機替換卡片中的數據（不改變原有的值，只是顯示）
      * @param {string} mod 模式
      */
     function randomBallData(mod: 'default' | 'lucky' | 'sphere' = 'default') {
-        // 两秒执行一次
+        // 兩秒執行一次
         intervalTimer.value = setInterval(() => {
-            // 产生随机数数组
+            // 產生隨機數數組
             const indexLength = 4
             const cardRandomIndexArr: number[] = []
             const personRandomIndexArr: number[] = []
             for (let i = 0; i < indexLength; i++) {
-                // 解决随机元素概率过于不均等问题
+                // 解決隨機元素概率過於不均等問題
                 const randomCardIndex = Math.floor(Math.random() * (tableData.value.length - 1))
                 const randomPersonIndex = Math.floor(Math.random() * (allPersonList.value.length - 1))
                 if (luckyCardList.value.includes(randomCardIndex)) {
@@ -752,7 +752,7 @@ export function useViewModel() {
         }, 200)
     }
     /**
-     * @description: 键盘监听，快捷键操作
+     * @description: 鍵盤監聽，快捷鍵操作
      */
     function listenKeyboard(e: any) {
         if ((e.keyCode !== 32 || e.keyCode !== 27) && !canOperate.value) {
@@ -782,28 +782,28 @@ export function useViewModel() {
         }
     }
     /**
-     * @description: 清理资源，避免内存溢出
+     * @description: 清理資源，避免內存溢出
      */
     function cleanup() {
-        // 停止所有Tween动画
+        // 停止所有Tween動畫
         TWEEN.removeAll()
 
-        // 清理动画循环
+        // 清理動畫循環
         if ((window as any).cancelAnimationFrame) {
             (window as any).cancelAnimationFrame(animationFrameId.value)
         }
         clearInterval(intervalTimer.value)
         intervalTimer.value = null
 
-        // 停止抽奖音乐
+        // 停止抽獎音樂
         stopLotteryMusic()
 
-        // 清理所有音频资源
+        // 清理所有音頻資源
         playingAudios.value.forEach((audio) => {
             if (!audio.ended && !audio.paused) {
                 audio.pause()
             }
-            // 释放音频资源
+            // 釋放音頻資源
             audio.src = ''
             audio.load()
         })
@@ -844,7 +844,7 @@ export function useViewModel() {
             controls.value.removeEventListener('change')
             controls.value.dispose()
         }
-        //   移除所有事件监听
+        //   移除所有事件監聽
         window.removeEventListener('resize', onWindowResize)
         scene.value = null
         camera.value = null
@@ -852,11 +852,11 @@ export function useViewModel() {
         controls.value = null
     }
     /**
-     * @description: 设置默认人员列表
+     * @description: 設置默認人員列表
      */
     function setDefaultPersonList() {
         personConfig.setDefaultPersonList()
-        // 刷新页面
+        // 刷新頁面
         window.location.reload()
     }
     const init = () => {
@@ -864,7 +864,7 @@ export function useViewModel() {
         const maxWaitTime = 2000 // 2秒
 
         const checkAndInit = () => {
-            // 如果人员列表有数据或者等待时间超过2秒，则执行初始化
+            // 如果人員列表有數據或者等待時間超過2秒，則執行初始化
             if (allPersonList.value.length > 0 || (Date.now() - startTime) >= maxWaitTime) {
                 console.log('初始化完成')
                 tableData.value = initTableData({ allPersonList: allPersonList.value, rowCount: rowCount.value })
@@ -876,9 +876,9 @@ export function useViewModel() {
                 isInitialDone.value = true
             }
             else {
-                console.log('等待人员列表数据...')
-                // 继续等待
-                setTimeout(checkAndInit, 100) // 每100毫秒检查一次
+                console.log('等待人員列表數據...')
+                // 繼續等待
+                setTimeout(checkAndInit, 100) // 每100毫秒檢查一次
             }
         }
 

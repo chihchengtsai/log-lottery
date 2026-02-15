@@ -26,7 +26,7 @@ function addSparticles(node: any, width: number, height: number) {
     const sparticleInstance = new Sparticles(node, options.value, width, height)
     return sparticleInstance
 }
-// 页面大小改变时
+// 頁面大小改變時
 function listenWindowSize() {
     window.addEventListener('resize', () => {
         if (width.value && height.value) {

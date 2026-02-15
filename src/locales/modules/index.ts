@@ -1,4 +1,4 @@
-// 导出该文件夹下的内容
+// 導出該文件夾下的內容
 export * from './button'
 export * from './data'
 export * from './dialog'

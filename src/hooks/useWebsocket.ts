@@ -13,15 +13,15 @@ export function useWebsocket() {
         if ('serviceWorker' in navigator) {
             try {
                 registration.value = await navigator.serviceWorker.register('/log-lottery/sw.js')
-                console.log('Service Worker 注册成功:', registration)
+                console.log('Service Worker 註冊成功:', registration)
                 listenSWMessage()
             }
             catch (error) {
-                console.error('Service Worker 注册失败:', error)
+                console.error('Service Worker 註冊失敗:', error)
             }
         }
         else {
-            console.error('浏览器不支持 Service Worker')
+            console.error('瀏覽器不支持 Service Worker')
         }
     }
 
@@ -58,7 +58,7 @@ export function useWebsocket() {
         })
     }
 
-    // 监听service worker消息
+    // 監聽service worker消息
     function listenSWMessage() {
         navigator.serviceWorker.addEventListener('message', (event) => {
             const msgType = event.data.type

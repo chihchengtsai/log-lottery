@@ -9,7 +9,7 @@
         "jsxImportSource": "vue",
         "sourceMap": true,
         "resolveJsonModule": true,
-        // 单元测试的支持
+        // 單元測試的支持
         "types": [
             "vitest/globals"
         ],

@@ -29,7 +29,7 @@ export function useViewModel() {
         }
         api_sendMsg(routeSignature.value, msgData).then((res: any) => {
             toast.open({
-                message: res.msg || '发送成功',
+                message: res.msg || '發送成功',
                 type: 'success',
                 position: 'top-right',
             })

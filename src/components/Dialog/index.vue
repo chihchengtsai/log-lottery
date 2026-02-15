@@ -10,7 +10,7 @@ interface Props {
     submitFunc?: () => void
     cancelFunc?: () => void
     footer?: null | 'center' | 'left' | 'right'
-    dialogClass?: string // 添加动态class属性
+    dialogClass?: string // 添加動態class屬性
 }
 const props = withDefaults(defineProps<Props>(), {
     cancelText: i18n.global.t('button.cancel'),

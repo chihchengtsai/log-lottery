@@ -14,14 +14,14 @@ defineProps<Props>()
 const currentServer = defineModel<ServerType>('currentServer', { required: true })
 const hostValue = ref('')
 // const { t } = useI18n()
-// 监听 currentServer 的 id 变化，重置 hostValue
+// 監聽 currentServer 的 id 變化，重設 hostValue
 watch(() => currentServer.value?.id, (newId, oldId) => {
     if (newId !== oldId) {
         hostValue.value = currentServer.value?.host || ''
     }
 }, { immediate: true })
 
-// 监听 hostValue 变化，同步更新 currentServer.host
+// 監聽 hostValue 變化，同步更新 currentServer.host
 watch(hostValue, (newHost) => {
     if (currentServer.value) {
         currentServer.value.host = newHost
@@ -35,15 +35,15 @@ hostValue.value = currentServer.value?.host || ''
 <template>
   <fieldset class="p-4 border text-setting fieldset bg-base-200 border-base-300 rounded-box w-xs pb-10">
     <legend class="fieldset-legend">
-      弹幕服务
+      彈幕服務
     </legend>
 
     <label class="flex flex-row items-center form-control">
       <div class="">
         <div class="label flex flex-col justify-start items-start">
           <label class="label">
-            <span class="label-text text-left">弹幕服务地址</span>
-            <div class="tooltip" data-tip="改变弹幕服务地址后会断开连接">
+            <span class="label-text text-left">彈幕服務地址</span>
+            <div class="tooltip" data-tip="改變彈幕服務地址後會斷開連接">
               <button class="btn btn-circle h-4 hover:bg-base-300">
                 ?
               </button>
@@ -59,7 +59,7 @@ hostValue.value = currentServer.value?.host || ''
           </div>
           <input
             type="text"
-            placeholder="请输入服务地址"
+            placeholder="請輸入服務地址"
             :disabled="currentServer.value === 'default'"
             class="w-full max-w-xs input input-bordered"
             :value="hostValue"
@@ -71,17 +71,17 @@ hostValue.value = currentServer.value?.host || ''
     <label class="flex flex-row items-center form-control">
       <div class="flex flex-col gap-3">
         <div class="label">
-          <span class="label-text">弹幕服务器连接状态</span>
+          <span class="label-text">彈幕服務器連接狀態</span>
         </div>
         <div class="flex gap-2 items-center">
           <div class="ws-status">
             <div v-if="wsStatus && wsStatus.connected">
               <div aria-label="success" class="status status-success" />
-              <span>已连接</span>
+              <span>已連接</span>
             </div>
             <div v-else-if="wsStatus && wsStatus.connected === false">
               <div aria-label="error" class="status status-error" />
-              <span>已断开</span>
+              <span>已斷開</span>
             </div>
             <div v-else-if="wsStatus && wsStatus.status">
               <div aria-label="error" class="status status-error" />
@@ -89,12 +89,12 @@ hostValue.value = currentServer.value?.host || ''
             </div>
             <div v-else>
               <div aria-label="warning" class="status status-warning" />
-              <span>未连接</span>
+              <span>未連接</span>
             </div>
           </div>
           <div class="flex gap-3">
-            <button v-if="wsStatus?.connected === true" class="btn btn-error btn-sm" @click="closeWs">断开</button>
-            <button v-else class="btn btn-primary btn-sm" @click="openWs">连接</button>
+            <button v-if="wsStatus?.connected === true" class="btn btn-error btn-sm" @click="closeWs">斷開</button>
+            <button v-else class="btn btn-primary btn-sm" @click="openWs">連接</button>
           </div>
         </div>
       </div>

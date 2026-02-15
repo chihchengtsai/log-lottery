@@ -16,17 +16,17 @@
 [![last commit](https://img.shields.io/github/last-commit/log1997/log-lottery/dev)](https://github.com/LOG1997/log-lottery/commits/dev/)
 </div>
 
-log-lottery是一个可配置可定制化的抽奖应用，炫酷3D球体，可用于年会抽奖等活动，支持奖品、人员、界面、图片音乐配置。
+log-lottery是一個可配置可定製化的抽獎應用，炫酷3D球體，可用於年會抽獎等活動，支持獎品、人員、界面、圖片音樂配置。
 
-> 如果进入网站遇到图片无法显示或有报错的情况，请先到【全局配置】-【界面配置】菜单中点击【重置所有数据】按钮清除数据后进行更新。
+> 如果進入網站遇到圖片無法顯示或有報錯的情況，請先到【全局配置】-【界面配置】菜單中點擊【重設所有資料】按鈕清除資料後進行更新。
 
-> 不支持内定功能
+> 不支持內定功能
 
 ## 要求
 
-使用PC端最新版Chrome或Edge浏览器。
+使用PC端最新版Chrome或Edge瀏覽器。
 
-访问地址：
+訪問地址：
 
 <https://lottery.to2026.xyz/log-lottery>
 
@@ -34,54 +34,54 @@ or
 
 <https://log1997.github.io/log-lottery/>
 
-开发仓促，若以上网站内容存在bug还请宽容。
-如果想要访问2025年12月31日前的版本，请前往：<https://to2026.xyz/log-lottery>
+開發倉促，若以上網站內容存在bug還請寬容。
+如果想要訪問2025年12月31日前的版本，請前往：<https://to2026.xyz/log-lottery>
 
 ## TODO
 
-- [x] 🕍 炫酷3D球体，年会抽奖必备，开箱即用
-- [x] 💾 本地持久化存储
-- [x] 🎁 奖品奖项配置
-- [x] 👱 抽奖名单设置管理
-- [x] 🎼 播放背景音乐
-- [x] 🖼️ excel表格导入人员名单、抽奖结果使用excel导出
-- [x] 🎈 可增加临时抽奖
-- [x] 🧨 国际化多语言
-- [x] 🍃 更换背景图片
-- [x] 🚅 添加docker构建
-- [x] 😘 弹幕（开发中）
-- [ ] 🧵 卡片组成多种形状
+- [x] 🕍 炫酷3D球體，年會抽獎必備，開箱即用
+- [x] 💾 本地持久化存儲
+- [x] 🎁 獎品獎項配置
+- [x] 👱 抽獎名單設置管理
+- [x] 🎼 播放背景音樂
+- [x] 🖼️ excel表格導入人員名單、抽獎結果使用excel導出
+- [x] 🎈 可增加臨時抽獎
+- [x] 🧨 國際化多語言
+- [x] 🍃 更換背景圖片
+- [x] 🚅 添加docker構建
+- [x] 😘 彈幕（開發中）
+- [ ] 🧵 卡片組成多種形狀
 
 ...
-需要更多功能或发现bug请留言[issues](https://github.com/LOG1997/log-lottery/issues)
+需要更多功能或發現bug請留言[issues](https://github.com/LOG1997/log-lottery/issues)
 
-## 详细介绍
+## 詳細介紹
 
-### 配置参与人员
+### 配置參與人員
 
-于人员配置管理界面下载excel模板，按要求填好数据后导入即可。
+於人員配置管理界面下載excel模板，按要求填好數據後導入即可。
 
-### 配置奖项
+### 配置獎項
 
-于奖项配置管理界面添加奖项后，自定义修改名称、抽取人数、是否全员参加、图片显示。
+於獎項配置管理界面添加獎項後，自定義修改名稱、抽取人數、是否全員參加、圖片顯示。
 
 ### 界面配置
 
-可自定义配置标题、列数、卡片颜色、首页图案等。
+可自定義配置標題、列數、卡片顏色、首頁圖案等。
 
-### 图片和音乐管理
+### 圖片和音樂管理
 
-上传图片或音乐即可，数据使用indexdb在浏览器本地进行存储。
+上傳圖片或音樂即可，數據使用indexdb在瀏覽器本地進行存儲。
 
-## 预览
+## 預覽
 
-首页
+首頁
 <div align="center">
     <img src="./static/images/home.png" alt="img2-1" width="400" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 8px;">
     <img src="./static//images/home_prizelist.png" alt="img2-2" width="400" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 8px;">
 </div>
 
-抽奖
+抽獎
 <div align="center">
     <img src="./static/images/lottery-enter.png" alt="img2-1" width="400" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 8px;">
     <img src="./static/images/lottery-done.png" alt="img2-2" width="400" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 8px;">
@@ -95,9 +95,9 @@ or
     <img src="./static/images/config_pattern.png" alt="img2-1" width="400" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 8px;">
 </div>
 
-图片音乐配置
+圖片音樂配置
 
-## 技术
+## 技術
 
 - vue3
 - threejs
@@ -105,9 +105,9 @@ or
 - pinia
 - daisyui
 
-## 开发
+## 開發
 
-安装依赖
+安裝依賴
 
 ```bash
 pnpm i
@@ -115,7 +115,7 @@ or
 npm install
 ```
 
-开发运行
+開發運行
 
 ```bash
 pnpm dev
@@ -131,49 +131,49 @@ or
 npm run build
 ```
 
-> 项目思路来源于 <https://github.com/moshang-xc/lottery>
+> 項目思路來源於 <https://github.com/moshang-xc/lottery>
 
 ## Docker支持
 
-以下任意方式选一种即可
+以下任意方式選一種即可
 
-1. 拉取镜像，从Docker Hub拉取镜像[log-lottery](https://hub.docker.com/r/log1997/log-lottery)
+1. 拉取鏡像，從Docker Hub拉取鏡像[log-lottery](https://hub.docker.com/r/log1997/log-lottery)
 
     ```bash
     docker pull log1997/log-lottery:latest
     ```
 
-    运行容器
+    運行容器
 
     ```bash
     docker run -d --name log-lottery -p 9279:80 log1997/log-lottery:latest
     ```
 
-2. 手动构建镜像
+2. 手動構建鏡像
 
     ```bash
     docker build -t log-lottery .
     ```
 
-    运行容器
+    運行容器
 
     ```bash
     docker run -d -p 9279:80 log-lottery
     ```
 
-    容器运行成功后即可在本地通过<http://localhost:9279/log-lottery/>访问
+    容器運行成功後即可在本地通過<http://localhost:9279/log-lottery/>訪問
 
-## 软件安装包
+## 軟件安裝包
 
-可前往[Releases](https://github.com/LOG1997/log-lottery/releases)下载。
+可前往[Releases](https://github.com/LOG1997/log-lottery/releases)下載。
 
-目前只支持windows平台使用，跨平台安装包暂不支持，如有需要请自行编译，参照[贡献文档](https://github.com/LOG1997/log-lottery/blob/main/.github/CONTRIBUTING.md)
+目前只支持windows平臺使用，跨平臺安裝包暫不支持，如有需要請自行編譯，參照[貢獻文檔](https://github.com/LOG1997/log-lottery/blob/main/.github/CONTRIBUTING.md)
 
-## 支持项目
+## 支持項目
 
-<h3>💝 赞助支持</h3>
+<h3>💝 贊助支持</h3>
 
-<p><em>如果您觉得 log-lottery 对您有帮助，欢迎赞助支持，您的支持是我们不断前进的动力！</em></p>
+<p><em>如果您覺得 log-lottery 對您有幫助，歡迎贊助支持，您的支持是我們不斷前進的動力！</em></p>
 
 <div>
  <img src="./static/images/ZanShang.png" height="240" alt="WeChat Code">

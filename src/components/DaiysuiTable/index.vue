@@ -14,14 +14,14 @@ const props = defineProps({
 })
 const { t } = useI18n()
 const dataColumns = computed<any[]>(() => {
-    // 不带有actions的列
+    // 不帶有actions的列
     const columns = props.tableColumns.filter((item: any) => !item.actions)
 
     return columns
 })
 
 const actionsColumns = computed<any[]>(() => {
-    // 带有actions的列
+    // 帶有actions的列
     const columns = props.tableColumns.filter((item: any) => item.actions)
 
     return columns

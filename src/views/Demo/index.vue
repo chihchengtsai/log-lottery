@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, shallowRef, watch } from 'vue'
+import { onMounted, onUnmounted, ref, shallowRef } from 'vue'
 import { useToast } from 'vue-toast-notification'
 import { api_sendMsg } from '@/api/msg'
 import { getOriginUrl, getUniqueSignature } from '@/utils/auth'
@@ -13,7 +13,7 @@ const wsQuery = ref<{ userSignature: string }>({
 function connectUserMsg() {
     api_sendMsg(wsQuery.value.userSignature, `hello world ${wsQuery.value.userSignature}`).then((res: any) => {
         toast.open({
-            message: res.msg || '发送成功',
+            message: res.msg || '發送成功',
             type: 'success',
             position: 'top-right',
         })

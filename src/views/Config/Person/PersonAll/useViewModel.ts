@@ -36,7 +36,7 @@ export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<H
     async function getExcelTemplateContent() {
         const locale = i18n.global.locale.value
         if (locale === 'zhCn') {
-            const templateData = await readLocalFileAsArraybuffer(`${baseUrl}人口登记表-zhCn.xlsx`)
+            const templateData = await readLocalFileAsArraybuffer(`${baseUrl}人口登記表-zhCn.xlsx`)
             return templateData
         }
         else {
@@ -44,20 +44,20 @@ export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<H
             return templateData
         }
     }
-    /// 向worker发送消息
+    /// 向worker發送訊息
     function sendWorkerMessage(message: any) {
         if (worker) {
             worker.postMessage(message)
         }
     }
-    /// 开始导入
+    /// 開始匯入
     async function startWorker(data: string) {
         loading?.show()
         getExcelTemplateContent()
         sendWorkerMessage({ type: 'start', data, templateData: await getExcelTemplateContent() })
     }
     /**
-     * 获取用户数据
+     * 讀取用戶資料
      */
     async function handleFileChange(e: Event) {
         if (worker) {
@@ -65,13 +65,13 @@ export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<H
                 if (e.data.type === 'done') {
                     personConfig.resetPerson()
                     personConfig.addNotPersonList(e.data.data)
-                    // 提示导入成功
+                    // 提示匯入成功
                     toast.open({
                         message: t('error.importSuccess'),
                         type: 'success',
                         position: 'top-right',
                     })
-                    // 导入成功后清空file input
+                    // 匯入成功後清空file input
                     clearFileInput()
                 }
                 if (e.data.type === 'error') {
@@ -88,7 +88,7 @@ export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<H
                         type: 'error',
                         position: 'top-right',
                     })
-                    // toast.warning(e.data.message || '导入错误')
+                    // toast.warning(e.data.message || '匯入錯誤')
                 }
                 loading?.hide()
             }
@@ -103,7 +103,7 @@ export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<H
         }
     }
     function downloadTemplate() {
-        // 下载
+        // 下載
         const templateFileName = i18n.global.t('data.xlsxName')
         const fileUrl = `${baseUrl}${templateFileName}`
         fetch(fileUrl)
@@ -121,7 +121,7 @@ export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<H
                 })
             })
     }
-    // 导出数据
+    // 匯出資料
     function exportData() {
         let data = JSON.parse(JSON.stringify(allPersonList.value))
         // 排除一些字段
@@ -132,14 +132,14 @@ export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<H
             delete data[i].createTime
             delete data[i].updateTime
             delete data[i].prizeId
-            // 修改字段名称
+            // 修改字段名稱
             if (data[i].isWin) {
                 data[i].isWin = i18n.global.t('data.yes')
             }
             else {
                 data[i].isWin = i18n.global.t('data.no')
             }
-            // 格式化数组为
+            // 格式化數組爲
             data[i].prizeTime = data[i].prizeTime.join(',')
             data[i].prizeName = data[i].prizeName.join(',')
         }
@@ -181,7 +181,7 @@ export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<H
     }
     function addOnePerson(addOnePersonDrawerRef: any, event: any) {
         event.preventDefault()
-        // 表单中的验证信息清除
+        // 表單中的驗證訊息清除
 
         const personData = addOtherInfo([toRaw(singlePersonData.value)])
         personData[0].id = uuidv4()

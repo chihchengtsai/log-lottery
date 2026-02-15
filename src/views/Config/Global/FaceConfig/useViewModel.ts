@@ -36,7 +36,7 @@ export function useViewModel() {
     } = storeToRefs(globalConfig)
     const { getAlreadyPersonList: alreadyPersonList, getNotPersonList: notPersonList } = storeToRefs(personConfig)
 
-    const isRowCountChange = ref(0) // 0未改变，1改变,2加载中
+    const isRowCountChange = ref(0) // 0未改變，1改變,2加載中
     const themeValue = ref(localTheme.value.name)
     const topTitleValue = ref(structuredClone(topTitle.value))
     const cardColorValue = ref(structuredClone(cardColor.value))
@@ -109,9 +109,9 @@ export function useViewModel() {
         globalConfig.reset()
         personConfig.reset()
         prizeConfig.resetDefault()
-        //   删除所有indexDb
+        //   刪除所有indexDb
         clearAllDbStore()
-        // 刷新页面
+        // 刷新頁面
         window.location.reload()
     }
 

@@ -10,7 +10,7 @@ import useStore from '@/store'
 
 const { t } = useI18n()
 const limitType = ref('image/*')
-const imgUploadToast = ref(0) // 0是不显示，1是成功，2是失败,3是不是图片
+const imgUploadToast = ref(0) // 0是不顯示，1是成功，2是失敗,3是不是圖片
 const visible = defineModel('visible', {
     type: Boolean,
     required: true,

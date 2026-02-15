@@ -41,22 +41,22 @@ export default defineConfig(({ mode }) => {
                 ext: '.gz',
             }),
             mode === 'prebuild' ? visualizer({
-                emitFile: true, // 是否被触摸
-                filename: 'test.html', // 生成分析网页文件名
-                open: true, // 在默认用户代理中打开生成的文件
-                gzipSize: true, // 从源代码中收集 gzip 大小并将其显示在图表中
-                brotliSize: true, // 从源代码中收集 brotli 大小并将其显示在图表中
+                emitFile: true, // 是否被觸摸
+                filename: 'test.html', // 生成分析網頁文件名
+                open: true, // 在默認用戶代理中打開生成的文件
+                gzipSize: true, // 從源代碼中收集 gzip 大小並將其顯示在圖表中
+                brotliSize: true, // 從源代碼中收集 brotli 大小並將其顯示在圖表中
             }) : null,
 
             createSvgIconsPlugin({
-                // 指定需要缓存的图标文件夹
+                // 指定需要緩存的圖標文件夾
                 iconDirs: [path.resolve(process.cwd(), 'src/icons')],
                 // 指定symbolId格式
                 symbolId: 'icon-[dir]-[name]',
             }),
             AutoImport({
                 resolvers: [
-                    // 自动导入图标组件
+                    // 自動導入圖標組件
                     IconsResolver({
                         prefix: 'Icon',
                     }),
@@ -65,7 +65,7 @@ export default defineConfig(({ mode }) => {
             }),
             Components({
                 resolvers: [
-                    // 自动注册图标组件
+                    // 自動註冊圖標組件
                     IconsResolver({
                         enabledCollections: ['ep'],
                     }),
@@ -95,7 +95,7 @@ export default defineConfig(({ mode }) => {
             port: 6719,
             strictPort: true,
             watch: {
-                // 告诉 Vite 忽略监听 `src-tauri` 目录
+                // 告訴 Vite 忽略監聽 `src-tauri` 目錄
                 ignored: ['**/src-tauri/**'],
             },
             proxy: {
@@ -103,12 +103,12 @@ export default defineConfig(({ mode }) => {
                     target: 'http://127.0.0.1:8080',
                     // 是否跨域
                     changeOrigin: true,
-                    // 路径重写
+                    // 路徑重寫
                     rewrite: path => path.replace(/^\/api/, '/api'),
                 },
             },
         },
-        // 添加有关当前构建目标的额外前缀，使这些 CLI 设置的 Tauri 环境变量可以在客户端代码中访问
+        // 添加有關當前構建目標的額外前綴，使這些 CLI 設置的 Tauri 環境變量可以在客戶端代碼中訪問
         envPrefix: ['VITE_', 'TAURI_ENV_*'],
         resolve: {
             alias: {
@@ -123,23 +123,23 @@ export default defineConfig(({ mode }) => {
             //     : 'es2020', // 普通前端可使用更高版本 JS 支持
             minify: process.env.TAURI_ENV_PLATFORM
                 ? (!process.env.TAURI_ENV_DEBUG ? 'esbuild' : false)
-                : 'terser', // 普通构建推荐使用 terser 提供更强压缩选项
+                : 'terser', // 普通構建推薦使用 terser 提供更強壓縮選項
             terserOptions: {
                 compress: {
-                    // 生产环境时移除console
+                    // 生產環境時移除console
                     drop_console: true,
                     drop_debugger: true,
                 },
             },
-            //   关闭文件计算
+            //   關閉文件計算
             reportCompressedSize: false,
-            //   关闭生成map文件 可以达到缩小打包体积
-            sourcemap: process.env.NODE_ENV === 'development' || !!process.env.TAURI_ENV_DEBUG, // 这个生产环境一定要关闭，不然打包的产物会很大
+            //   關閉生成map文件 可以達到縮小打包體積
+            sourcemap: process.env.NODE_ENV === 'development' || !!process.env.TAURI_ENV_DEBUG, // 這個生產環境一定要關閉，不然打包的產物會很大
             rollupOptions: {
                 output: {
-                    chunkFileNames: `js/${chunkName}-[hash].js`, // 引入文件名的名称
-                    entryFileNames: `js/${chunkName}-[hash].js`, // 包的入口文件名称
-                    assetFileNames: `[ext]/${chunkName}-[hash].[ext]`, // 资源文件像 字体，图片等
+                    chunkFileNames: `js/${chunkName}-[hash].js`, // 引入文件名的名稱
+                    entryFileNames: `js/${chunkName}-[hash].js`, // 包的入口文件名稱
+                    assetFileNames: `[ext]/${chunkName}-[hash].[ext]`, // 資源文件像 字體，圖片等
                     manualChunks(id: any): string {
                         if (id.includes('node_modules')) {
                             return id
@@ -152,9 +152,9 @@ export default defineConfig(({ mode }) => {
                 },
             },
         },
-        // 使用这个必须在上面加/// <reference types="vitest" /> 不然会有类型报错
+        // 使用這個必須在上面加/// <reference types="vitest" /> 不然會有類型報錯
         test: {
-            globals: true, // --> 0.8.1+  请修改成globals
+            globals: true, // --> 0.8.1+  請修改成globals
             environment: 'jsdom',
             // include: ['**/__tests__/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
             // passWithNoTests: true,

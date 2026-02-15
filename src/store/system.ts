@@ -27,7 +27,7 @@ export const useSystem = defineStore('system', {
         enabled: true,
         strategies: [
             {
-                // 如果要存储在localStorage中
+                // 如果要存儲在localStorage中
                 // storage: localStorage,
                 // key: 'globalConfig',
                 // paths: ['globalConfig'],

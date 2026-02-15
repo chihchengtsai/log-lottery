@@ -116,7 +116,7 @@ onMounted(() => {
         <svg-icon :name="currentMusic.paused ? 'play' : 'pause'" />
       </div>
     </div>
-    <div v-if="serverStatus" class="tooltip tooltip-left" data-tip="访问手机端">
+    <div v-if="serverStatus" class="tooltip tooltip-left" data-tip="訪問手機端">
       <div class="flex items-center justify-center w-10 h-10 p-0 m-0 cursor-pointer setting-container bg-slate-500/50 rounded-l-xl hover:bg-slate-500/80 hover:text-blue-400/90" @click="openMobileQrCode">
         <TabletSmartphone />
       </div>

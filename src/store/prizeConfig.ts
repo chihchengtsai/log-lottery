@@ -33,44 +33,44 @@ export const usePrizeConfig = defineStore('prize', {
         }
     },
     getters: {
-    // 获取全部配置
+        // 獲取全部配置
         getPrizeConfigAll(state) {
             return state.prizeConfig
         },
-        // 获取奖品列表
+        // 獲取獎品列表
         getPrizeConfig(state) {
             return state.prizeConfig.prizeList
         },
-        // 根据id获取配置
+        // 根據id獲取配置
         getPrizeConfigById(state) {
             return (id: number | string) => {
                 return state.prizeConfig.prizeList.find(item => item.id === id)
             }
         },
-        // 获取当前奖项
+        // 獲取當前獎項
         getCurrentPrize(state) {
             return state.prizeConfig.currentPrize
         },
-        // 获取临时的奖项
+        // 獲取臨時的獎項
         getTemporaryPrize(state) {
             return state.prizeConfig.temporaryPrize
         },
 
     },
     actions: {
-    // 设置奖项
+        // 設置獎項
         setPrizeConfig(prizeList: IPrizeConfig[]) {
             this.prizeConfig.prizeList = prizeList
         },
-        // 添加奖项
+        // 添加獎項
         addPrizeConfig(prizeConfigItem: IPrizeConfig) {
             this.prizeConfig.prizeList.push(prizeConfigItem)
         },
-        // 删除奖项
+        // 刪除獎項
         deletePrizeConfig(prizeConfigItemId: number | string) {
             this.prizeConfig.prizeList = this.prizeConfig.prizeList.filter(item => item.id !== prizeConfigItemId)
         },
-        // 更新奖项数据
+        // 更新獎項數據
         updatePrizeConfig(prizeConfigItem: IPrizeConfig) {
             const prizeListLength = this.prizeConfig.prizeList.length
             if (prizeConfigItem.isUsed && prizeListLength) {
@@ -86,15 +86,15 @@ export const usePrizeConfig = defineStore('prize', {
             }
             this.resetTemporaryPrize()
         },
-        // 删除全部奖项
+        // 刪除全部獎項
         deleteAllPrizeConfig() {
             this.prizeConfig.prizeList = [] as IPrizeConfig[]
         },
-        // 设置当前奖项
+        // 設置當前獎項
         setCurrentPrize(prizeConfigItem: IPrizeConfig) {
             this.prizeConfig.currentPrize = prizeConfigItem
         },
-        // 设置临时奖项
+        // 設置臨時獎項
         setTemporaryPrize(prizeItem: IPrizeConfig) {
             if (prizeItem.isShow === false) {
                 for (let i = 0; i < this.prizeConfig.prizeList.length; i++) {
@@ -111,7 +111,7 @@ export const usePrizeConfig = defineStore('prize', {
 
             this.prizeConfig.temporaryPrize = prizeItem
         },
-        // 重置临时奖项
+        // 重設臨時獎項
         resetTemporaryPrize() {
             this.prizeConfig.temporaryPrize = {
                 id: '',
@@ -135,7 +135,7 @@ export const usePrizeConfig = defineStore('prize', {
                 frequency: 1,
             } as IPrizeConfig
         },
-        // 重置所有配置
+        // 重設所有配置
         resetDefault() {
             this.prizeConfig = {
                 prizeList: defaultPrizeList,
@@ -168,7 +168,7 @@ export const usePrizeConfig = defineStore('prize', {
         enabled: true,
         strategies: [
             {
-                // 如果要存储在localStorage中
+                // 如果要存儲在localStorage中
                 storage: localStorage,
                 key: 'prizeConfig',
             },

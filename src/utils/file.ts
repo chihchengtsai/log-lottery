@@ -23,12 +23,12 @@ export function readFileDataAsBlob(file: File): Promise<{ data: Blob, fileName: 
         const reader = new FileReader()
 
         reader.onload = () => {
-            // 直接使用原始文件作为 Blob
+            // 直接使用原始文件作爲 Blob
             resolve({ data: file, fileName: file.name })
         }
 
         reader.onerror = () => {
-            reject(new Error('文件读取失败'))
+            reject(new Error('文件讀取失敗'))
         }
 
         reader.readAsArrayBuffer(file)

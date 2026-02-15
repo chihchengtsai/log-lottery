@@ -2,7 +2,7 @@
 import type { IPrizeConfig } from '@/types/storeType'
 import { useI18n } from 'vue-i18n'
 
-import defaultPrizeImage from '@/assets/images/龙.png'
+import defaultPrizeImage from '@/assets/images/龍.png'
 
 defineProps<{
     temporaryPrize: IPrizeConfig

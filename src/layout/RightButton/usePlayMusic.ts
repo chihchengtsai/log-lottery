@@ -61,7 +61,7 @@ export function usePlayMusic() {
             globalConfig.setCurrentMusic(localMusicList.value[index], false)
         }
     }
-    // 监听播放成后开始下一首
+    // 監聽播放成後開始下一首
     function onPlayEnd() {
         audio.value.addEventListener('ended', nextPlay)
     }

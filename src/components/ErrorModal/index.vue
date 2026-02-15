@@ -2,7 +2,7 @@
 import { Dialog, DialogDescription, DialogPanel, DialogTitle } from '@headlessui/vue'
 import { CircleAlert } from 'lucide-vue-next'
 import { defineEmits, defineProps, ref, watch } from 'vue'
-// 定义组件属性
+// 定義組件屬性
 const props = defineProps({
     title: {
         type: String,
@@ -12,25 +12,25 @@ const props = defineProps({
         type: String,
         required: true,
     },
-    // 控制弹窗显隐
+    // 控制彈窗顯隱
     modelValue: {
         type: Boolean,
         default: false,
     },
 })
 
-// 定义事件
+// 定義事件
 const emit = defineEmits(['update:modelValue', 'close'])
 
-// 内部显隐状态
+// 內部顯隱狀態
 const visible = ref(props.modelValue)
 
-// 同步外部 modelValue 变化
+// 同步外部 modelValue 變化
 watch(() => props.modelValue, (val) => {
     visible.value = val
 })
 
-// 关闭弹窗
+// 關閉彈窗
 function handleClose() {
     visible.value = false
     emit('update:modelValue', false)
@@ -59,7 +59,7 @@ function handleClose() {
           </DialogDescription>
           <div class="mr-4 mt-4 flex justify-end">
             <button class="btn" @click="handleClose">
-              确定
+              確定
             </button>
           </div>
         </DialogPanel>

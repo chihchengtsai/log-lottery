@@ -3,10 +3,10 @@ import confetti from 'canvas-confetti'
 import { Object3D, Vector3 } from 'three'
 import { filterData } from '@/utils'
 /**
- * @description 初始化表格数据
+ * @description 初始化表格數據
  * @param0 allPersonList 所有人的列表
- * @param1 rowCount 行数，默认是7行
- * @returns 表格数据
+ * @param1 rowCount 行數，默認是7行
+ * @returns 表格數據
  */
 export function initTableData({ allPersonList, rowCount }: { allPersonList: IPersonConfig[], rowCount: number }): IPersonConfig[] {
     let tableData: IPersonConfig[] = []
@@ -26,9 +26,9 @@ export function initTableData({ allPersonList, rowCount }: { allPersonList: IPer
 }
 
 /**
- * @description 横铺图形：处理数据，把每个卡片在界面的位置写入
- * @param0 tableData 表格数据
- * @param1 rowCount 每行有多少个元素
+ * @description 橫鋪圖形：處理數據，把每個卡片在界面的位置寫入
+ * @param0 tableData 表格數據
+ * @param1 rowCount 每行有多少個元素
  * @param2 cardSize 卡片的大小
  * @returns  Object3D[]
  */
@@ -47,8 +47,8 @@ export function createTableVertices({ tableData, rowCount, cardSize }: { tableDa
     return objects
 }
 /**
- * @description 创建球体
- * @param0 objectsLength 物体的个数
+ * @description 創建球體
+ * @param0 objectsLength 物體的個數
  * @returns Object3D[]
  */
 export function createSphereVertices({ objectsLength }: { objectsLength: number }): Object3D[] {

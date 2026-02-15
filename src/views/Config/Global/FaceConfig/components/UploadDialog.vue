@@ -40,7 +40,7 @@ async function uploadFile(fileData: IFileData | null) {
 
 function submitUpload() {
     if (jsonFileData.value) {
-    // 把文件转化为json数据
+    // 把文件轉化爲json數據
         const jsonData = jsonFileData.value.data
         props.importAllConfigData(jsonData)
     }

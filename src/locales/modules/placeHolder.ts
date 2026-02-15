@@ -9,13 +9,13 @@ export const placeHolderEn = {
 }
 
 export const placeHolderZhCn = {
-    enterTitle: '输入标题',
-    name: '名称',
-    winnerCount: '中奖人数',
-    selectFont: '选择字体',
-    timedStop: '开始后定时抽取',
-    imageName: '图片名称',
-    personName: '请填写姓名',
+    enterTitle: '輸入標題',
+    name: '名稱',
+    winnerCount: '中獎人數',
+    selectFont: '選擇字體',
+    timedStop: '開始後定時抽取',
+    imageName: '圖片名稱',
+    personName: '請填寫姓名',
 }
 
 export const placeHolder = {

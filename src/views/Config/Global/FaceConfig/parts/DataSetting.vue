@@ -58,10 +58,10 @@ const uploadVisible = ref(false)
     <!-- <label class="flex flex-row items-center form-control">
       <div class="">
         <div class="label flex flex-col justify-start items-start">
-          <span class="label-text text-left">导出数据</span>
+          <span class="label-text text-left">導出數據</span>
           <div class="help">
             <button class="btn btn-sm btn-primary" @click="exportAllConfigData">
-              导出全部数据
+              導出全部數據
             </button>
           </div>
         </div>
@@ -70,10 +70,10 @@ const uploadVisible = ref(false)
     <label class="flex flex-row items-center form-control">
       <div class="">
         <div class="label flex flex-col justify-start items-start">
-          <span class="label-text text-left">导入数据</span>
+          <span class="label-text text-left">導入數據</span>
           <div class="help">
             <button class="btn btn-sm btn-primary" @click="uploadVisible = true">
-              导入设置
+              導入設置
             </button>
           </div>
         </div>

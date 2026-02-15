@@ -1,52 +1,52 @@
 /* eslint-disable no-restricted-globals */
-// Service Worker 最小示例
+// Service Worker 最小實例
 
-// 安装事件
+// 安裝事件
 self.addEventListener('install', (event) => {
     console.log('Service Worker: Installed', event)
-    // 跳过等待，立即激活
+    // 跳過等待，立即啟動
     self.skipWaiting()
 })
 
-// 激活事件
+// 啟動事件
 self.addEventListener('activate', (event) => {
     console.log('Service Worker: Activated')
-    // 立即控制所有页面
+    // 立即控制所有頁面
     event.waitUntil(self.clients.claim())
 })
 
 self.currentClient = null
-// 监听页面消息
+// 監聽頁面訊息
 self.addEventListener('message', async (event) => {
-    // 处理来自页面的消息
+    // 處理來自頁面的訊息
     self.currentClient = event.source
     if (event.data && event.data.type) {
-        console.log('处理来自页面的消息:', event.data)
+        console.log('處理來自頁面的訊息:', event.data)
         switch (event.data.type) {
             case 'CONNECT_WS':
-                console.log('连接的URL:', event.data.payload.url, self.webSocketConnection)
+                console.log('連接的URL:', event.data.payload.url, self.webSocketConnection)
                 if (!self.webSocketConnection || self.webSocketConnection.readyState !== WebSocket.OPEN) {
                     self.webSocketConnection = new WebSocket(event.data.payload.url)
                 }
-                console.log('新连接：', self.webSocketConnection)
+                console.log('新連接：', self.webSocketConnection)
                 self.webSocketConnection.onopen = () => {
-                    console.log('连接成功了，可以发消息')
+                    console.log('連接成功了，可以發送訊息')
                     if (self.currentClient) {
                         self.currentClient.postMessage({
                             type: 'WS_OPEN',
                             success: true,
                             payload: {
-                                message: '连接成功',
+                                message: '連接成功',
                                 data: null
                             }
                         })
                     }
                 }
-                // 接收到消息推送给客户端
+                // 接收到消息推送給客戶端
                 self.webSocketConnection.onmessage = (message) => {
                     const formatMsg = JSON.parse(message.data)
 
-                    console.log('服务器的消息', formatMsg)
+                    console.log('服務器的訊息', formatMsg)
                     if (self.currentClient) {
                         self.currentClient.postMessage({
                             type: 'WS_MESSAGE',
@@ -65,7 +65,7 @@ self.addEventListener('message', async (event) => {
                     // }
 
                 }
-                // 连接错误
+                // 連接錯誤
                 self.webSocketConnection.onerror = (error) => {
                     console.error('WebSocket error:', error)
                     if (self.currentClient) {
@@ -73,13 +73,13 @@ self.addEventListener('message', async (event) => {
                             type: 'WS_ERROR',
                             success: true,
                             payload: {
-                                message: '连接错误',
+                                message: '連接錯誤',
                                 data: error,
                             }
                         })
                     }
                 }
-                // 连接关闭
+                // 連接關閉
                 self.webSocketConnection.onclose = () => {
                     console.log('WebSocket connection closed')
                     if (self.currentClient) {
@@ -87,7 +87,7 @@ self.addEventListener('message', async (event) => {
                             type: 'WS_CLOSE',
                             success: true,
                             payload: {
-                                message: '已断开连接',
+                                message: '已斷開連接',
                                 data: null
                             }
                         })
@@ -96,7 +96,7 @@ self.addEventListener('message', async (event) => {
                 break
             case 'SEND_WS_MESSAGE':
                 const user_msg = event.data.payload.message
-                console.log('发送信号改哦西:', user_msg, self.webSocketConnection)
+                console.log('發送訊息:', user_msg, self.webSocketConnection)
                 self.webSocketConnection.send(user_msg)
                 break
             case 'DISCONNECT_WS':
@@ -106,7 +106,7 @@ self.addEventListener('message', async (event) => {
                     type: 'WS_CLOSE',
                     success: true,
                     payload: {
-                        message: '已断开连接',
+                        message: '已斷開連接',
                         data: null
                     }
                 })
@@ -123,7 +123,7 @@ self.addEventListener('message', async (event) => {
                 })
                 break
             case 'GET_WS_STATUS':
-                // 返回WebSocket连接状态（如果有的话）
+                // 返回WebSocket連接狀態（如果有的話）
                 event.source.postMessage({
                     type: 'WS_STATUS',
                     success: true,
@@ -140,13 +140,13 @@ self.addEventListener('message', async (event) => {
     }
 })
 
-// 监听通知点击事件
+// 監聽通知點擊事件
 self.addEventListener('notificationclick', (event) => {
     console.log('Notification clicked:', event.notification.title)
 
     event.notification.close()
 
-    // 打开或聚焦到页面
+    // 打開或聚焦到頁面
     event.waitUntil(
         clients.openWindow(event.notification.data.url || '/'),
     )

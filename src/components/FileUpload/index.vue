@@ -50,7 +50,7 @@ function removeFile() {
       <ListMusic v-else-if="fileData && fileData.type.includes('audio')" class="w-2/3 h-2/3 stroke-1 text-gray-500/50" />
       <div v-else class="w-full h-full flex justify-center items-center flex-col gap-4">
         <Upload class="w-2/3 h-2/3 stroke-1 text-gray-500/50" />
-        <span class="btn btn-neutral">点击上传</span>
+        <span class="btn btn-neutral">點擊上傳</span>
       </div>
     </label>
     <div v-if="fileData" class="w-full flex items-center justify-between mt-2">

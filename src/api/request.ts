@@ -12,32 +12,32 @@ class Request {
             ...config,
         })
 
-        // 添加请求拦截器
+        // 添加請求攔截器
         this.instance.interceptors.request.use(
             (config: InternalAxiosRequestConfig) => {
-                // 在发送请求之前做些什么
+                // 在發送請求之前做些什麼
                 return config
             },
             (error: any) => {
-                // 对请求错误做些什么
+                // 對請求錯誤做些什麼
                 return Promise.reject(error)
             },
         )
 
-        // 添加响应拦截器
+        // 添加響應攔截器
         this.instance.interceptors.response.use(
             (response: AxiosResponse) => {
-                // 对响应数据做些什么
+                // 對響應數據做些什麼
                 return response
             },
             (error: any) => {
-                // 对响应错误做些什么
+                // 對響應錯誤做些什麼
                 if (error.response && error.response.data) {
                     const { code, msg } = error.response.data
                     openModal({ title: code, desc: msg })
                     return Promise.reject(error.response.data)
                 }
-                openModal({ title: '请求错误', desc: error.message })
+                openModal({ title: '請求錯誤', desc: error.message })
                 return Promise.reject(error)
             },
         )
@@ -50,7 +50,7 @@ class Request {
     }
 }
 
-// 函数
+// 函數
 function request<T>(config: AxiosRequestConfig): Promise<T> {
     const instance = new Request(config)
 
