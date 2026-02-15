@@ -21,7 +21,7 @@ export const useGlobalConfig = defineStore('global', {
                     cardWidth: 140,
                     cardHeight: 200,
                     textColor: '#00000000',
-                    luckyCardColor: '#ECB1AC',
+                    luckyCardColor: '#0d0244ff',
                     textSize: 30,
                     patternColor: '#1b66c9',
                     patternList: defaultPatternList as number[],
@@ -280,7 +280,7 @@ export const useGlobalConfig = defineStore('global', {
         setDefiniteTime(definiteTime: number | null) {
             this.globalConfig.definiteTime = definiteTime
         },
-        // 設置是否播放中獎音樂
+        // 設置是否播放獲獎音樂
         setIsPlayWinMusic(winMusic: boolean) {
             this.globalConfig.winMusic = winMusic
         },
@@ -301,7 +301,7 @@ export const useGlobalConfig = defineStore('global', {
                     cardWidth: 140,
                     cardHeight: 200,
                     textColor: '#00000000',
-                    luckyCardColor: '#ECB1AC',
+                    luckyCardColor: '#0d0244ff',
                     textSize: 30,
                     patternColor: '#1b66c9',
                     patternList: defaultPatternList as number[],

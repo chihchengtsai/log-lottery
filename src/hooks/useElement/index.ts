@@ -57,14 +57,14 @@ export function useElementStyle(props: IUseElementStyle) {
     element.children[1].style.lineHeight = `${textSize * scale * 3}px`
     element.children[1].style.textShadow = `0 0 12px ${rgba(cardColor, 0.95)}`
     if (person.name) {
-        element.children[1].textContent = person.name
+        element.children[1].innerHTML = person.name.replace(/\s*\(/, '<br/>(')
     }
 
     element.children[2].style.fontSize = `${textSize * scale * 0.5}px`
     // 設置所屬扶輪社和身份的預設值
     element.children[2].innerHTML = ''
-    if (person.department || person.identity || person.nickname) {
-        element.children[2].innerHTML = `${person.nickname ? person.nickname : ''} <br/>${person.department ? person.department : ''} ${person.identity ? person.identity : ''}`
+    if (person.clubName || person.title || person.nickname) {
+        element.children[2].innerHTML = `${person.clubName ? person.clubName : ''}<br/>${person.title && person.nickname ? person.title + '.' + person.nickname : ''}`
     }
     element.children[3].src = person.avatar
     return element

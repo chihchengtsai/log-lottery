@@ -14,7 +14,7 @@ import { readFileBinary, readLocalFileAsArraybuffer } from '@/utils/file'
 import { tableColumns } from './columns'
 import ImportExcelWorker from './importExcel.worker?worker'
 
-type IBasePersonConfig = Pick<IPersonConfig, 'uid' | 'name' | 'nickname' | 'department' | 'identity' | 'avatar'>
+type IBasePersonConfig = Pick<IPersonConfig, 'uid' | 'name' | 'nickname' | 'clubName' | 'title' | 'avatar'>
 
 export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<HTMLInputElement> }) {
     const { t } = useI18n()
@@ -30,14 +30,14 @@ export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<H
         uid: '',
         name: '',
         nickname: '',
-        department: '',
+        clubName: '',
         avatar: '',
-        identity: '',
+        title: '',
     })
     async function getExcelTemplateContent() {
         const locale = i18n.global.locale.value
         if (locale === 'zhCn') {
-            const templateData = await readLocalFileAsArraybuffer(`${baseUrl}人口登記表-zhCn.xlsx`)
+            const templateData = await readLocalFileAsArraybuffer(`${baseUrl}人員名單範本.xlsx`)
             return templateData
         }
         else {
@@ -65,7 +65,41 @@ export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<H
             worker.onmessage = (e) => {
                 if (e.data.type === 'done') {
                     personConfig.resetPerson()
-                    personConfig.addNotPersonList(e.data.data)
+                    const mappedData = e.data.data.map((item: any) => {
+                        const newItem: any = { ...item }
+                        // Map localized headers to internal keys
+                        // ClubName/Department
+                        if (item[i18n.global.t('data.clubName')] !== undefined) {
+                            newItem.clubName = item[i18n.global.t('data.clubName')]
+                            delete newItem[i18n.global.t('data.clubName')]
+                        }
+
+                        // Title/Identity
+                        if (item[i18n.global.t('data.title')] !== undefined) {
+                            newItem.title = item[i18n.global.t('data.title')] // Localized Title
+                            delete newItem[i18n.global.t('data.title')]
+                        }
+
+                        // Map other fields if they are localized keys
+                        const nameKey = i18n.global.t('data.name')
+                        if (item[nameKey] !== undefined) {
+                            newItem.name = item[nameKey]
+                            delete newItem[nameKey]
+                        }
+                        const uidKey = i18n.global.t('data.number')
+                        if (item[uidKey] !== undefined) {
+                            newItem.uid = item[uidKey]
+                            delete newItem[uidKey]
+                        }
+                        const nicknameKey = i18n.global.t('data.nickname')
+                        if (item[nicknameKey] !== undefined) {
+                            newItem.nickname = item[nicknameKey]
+                            delete newItem[nicknameKey]
+                        }
+
+                        return newItem
+                    })
+                    personConfig.addNotPersonList(mappedData)
                     // 提示匯入成功
                     toast.open({
                         message: t('error.importSuccess'),
@@ -148,10 +182,10 @@ export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<H
         dataString = dataString
             .replaceAll(/uid/g, i18n.global.t('data.number'))
             .replaceAll(/isWin/g, i18n.global.t('data.isWin'))
-            .replaceAll(/department/g, i18n.global.t('data.department'))
+            .replaceAll(/clubName/g, i18n.global.t('data.clubName'))
             .replaceAll(/name/g, i18n.global.t('data.name'))
             .replaceAll(/nickname/g, i18n.global.t('data.nickname'))
-            .replaceAll(/identity/g, i18n.global.t('data.identity'))
+            .replaceAll(/title/g, i18n.global.t('data.title'))
             .replaceAll(/prizeName/g, i18n.global.t('data.prizeName'))
             .replaceAll(/prizeTime/g, i18n.global.t('data.prizeTime'))
 

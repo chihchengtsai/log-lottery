@@ -3,8 +3,8 @@ export interface IPersonConfig {
     uid: string
     uuid: string
     name: string
-    department: string
-    identity: string
+    clubName: string
+    title: string
     avatar: string
     isWin: boolean
     x: number

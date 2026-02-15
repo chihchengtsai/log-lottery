@@ -29,12 +29,12 @@ export function tableColumns(props: IColumnsProps) {
             },
         },
         {
-            label: i18n.global.t('data.department'),
-            props: 'department',
+            label: i18n.global.t('data.clubName'),
+            props: 'clubName',
         },
         {
-            label: i18n.global.t('data.identity'),
-            props: 'identity',
+            label: i18n.global.t('data.title'),
+            props: 'title',
         },
         {
             label: i18n.global.t('data.prizeName'),
