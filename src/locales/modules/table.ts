@@ -9,6 +9,7 @@ export const tableEn = {
     // person configuration
     number: 'Number',
     name: 'Name',
+    nickname: 'Nickname',
     prizeName: 'Name',
     department: 'Department',
     avatar: 'Avatar',
@@ -61,6 +62,7 @@ export const tableZhCn = {
     // person configuration
     number: '編號',
     name: '姓名',
+    nickname: '暱稱',
     prizeName: '名稱',
     department: '所屬扶輪社',
     avatar: '人像',

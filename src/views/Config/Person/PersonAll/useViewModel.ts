@@ -14,7 +14,7 @@ import { readFileBinary, readLocalFileAsArraybuffer } from '@/utils/file'
 import { tableColumns } from './columns'
 import ImportExcelWorker from './importExcel.worker?worker'
 
-type IBasePersonConfig = Pick<IPersonConfig, 'uid' | 'name' | 'department' | 'identity' | 'avatar'>
+type IBasePersonConfig = Pick<IPersonConfig, 'uid' | 'name' | 'nickname' | 'department' | 'identity' | 'avatar'>
 
 export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<HTMLInputElement> }) {
     const { t } = useI18n()
@@ -29,6 +29,7 @@ export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<H
     const singlePersonData = ref<IBasePersonConfig>({
         uid: '',
         name: '',
+        nickname: '',
         department: '',
         avatar: '',
         identity: '',
@@ -149,6 +150,7 @@ export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<H
             .replaceAll(/isWin/g, i18n.global.t('data.isWin'))
             .replaceAll(/department/g, i18n.global.t('data.department'))
             .replaceAll(/name/g, i18n.global.t('data.name'))
+            .replaceAll(/nickname/g, i18n.global.t('data.nickname'))
             .replaceAll(/identity/g, i18n.global.t('data.identity'))
             .replaceAll(/prizeName/g, i18n.global.t('data.prizeName'))
             .replaceAll(/prizeTime/g, i18n.global.t('data.prizeTime'))

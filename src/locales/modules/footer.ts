@@ -4,8 +4,8 @@ export const footerEn = {
 }
 
 export const footerZhCn = {
-    'self-reflection': '榮耀扶輪，團結向善',
-    'thiefEasy': 'UNITE FOR GOOD',
+    'self-reflection': '榮耀扶輪，永續傳承',
+    'thiefEasy': 'Glory Rotary 😀 United for Good',
 }
 
 export const footer = {

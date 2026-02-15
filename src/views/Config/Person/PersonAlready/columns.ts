@@ -18,6 +18,10 @@ export function tableColumns(props: IColumnsProps) {
             props: 'name',
         },
         {
+            label: i18n.global.t('data.nickname'),
+            props: 'nickname',
+        },
+        {
             label: i18n.global.t('data.avatar'),
             props: 'avatar',
             formatValue(row: any) {

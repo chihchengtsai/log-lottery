@@ -14,6 +14,7 @@ export interface IPersonConfig {
     prizeName: string[]
     prizeId: string[]
     prizeTime: string[]
+    nickname?: string
 }
 export interface Separate {
     id: string

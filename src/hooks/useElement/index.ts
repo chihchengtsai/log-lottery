@@ -63,8 +63,8 @@ export function useElementStyle(props: IUseElementStyle) {
     element.children[2].style.fontSize = `${textSize * scale * 0.5}px`
     // 設置所屬扶輪社和身份的預設值
     element.children[2].innerHTML = ''
-    if (person.department || person.identity) {
-        element.children[2].innerHTML = `${person.department ? person.department : ''}<br/>${person.identity ? person.identity : ''}`
+    if (person.department || person.identity || person.nickname) {
+        element.children[2].innerHTML = `${person.nickname ? person.nickname : ''} <br/>${person.department ? person.department : ''} ${person.identity ? person.identity : ''}`
     }
     element.children[3].src = person.avatar
     return element
