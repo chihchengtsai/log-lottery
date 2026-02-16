@@ -64,7 +64,9 @@ export function useElementStyle(props: IUseElementStyle) {
     // 設置所屬扶輪社和身份的預設值
     element.children[2].innerHTML = ''
     if (person.clubName || person.title || person.nickname) {
-        element.children[2].innerHTML = `${person.clubName ? person.clubName : ''}<br/>${person.title && person.nickname ? person.title + '.' + person.nickname : ''}`
+        const titleText = String(person.title || '').trim()
+        const displayTitle = (titleText && titleText !== 'Rtn') ? `${titleText}.` : ''
+        element.children[2].innerHTML = `${person.clubName ? person.clubName : ''}<br/>${displayTitle}${person.nickname ? person.nickname : ''}`
     }
     element.children[3].src = person.avatar
     return element

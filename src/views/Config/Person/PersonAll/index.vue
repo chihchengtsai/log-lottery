@@ -24,7 +24,7 @@ const {
     allPersonList,
     tableColumnList,
     downloadTemplate,
-} = useViewModel({ exportInputFileRef })
+} = useViewModel({ exportInputFileRef, addOnePersonDrawerRef })
 const { t } = useI18n()
 const limitType = '.xlsx,.xls'
 </script>
@@ -59,15 +59,15 @@ const limitType = '.xlsx,.xls'
           <button class="btn btn-error btn-sm" @click="delAllDataDialogRef.showDialog()">
             {{ t('button.allDelete') }}
           </button>
-          <div class="tooltip tooltip-bottom" :data-tip="t('tooltip.downloadTemplateTip')">
-            <button class="no-underline btn btn-secondary btn-sm" @click="downloadTemplate">
-              {{ t('button.downloadTemplate') }}
-            </button>
-            <!-- <a
-              class="no-underline btn btn-secondary btn-sm" :download="t('data.xlsxName')" target="_blank"
-              :href="`${baseUrl}${t('data.xlsxName')}`"
-            >{{ t('button.downloadTemplate') }}</a> -->
-          </div>
+<!-- <div class="tooltip tooltip-bottom" :data-tip="t('tooltip.downloadTemplateTip')">
+  <button class="no-underline btn btn-secondary btn-sm" @click="downloadTemplate">
+    {{ t('button.downloadTemplate') }}
+  </button>
+  <a
+    class="no-underline btn btn-secondary btn-sm" :download="t('data.xlsxName')" target="_blank"
+    :href="`${baseUrl}${t('data.xlsxName')}`"
+  >{{ t('button.downloadTemplate') }}</a>
+</div> -->
           <div class="">
             <label for="explore">
               <div class="tooltip tooltip-bottom" :data-tip="t('tooltip.uploadExcelTip')">

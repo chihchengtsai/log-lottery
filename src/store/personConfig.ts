@@ -133,6 +133,20 @@ export const usePersonConfig = defineStore('person', () => {
             personDb.deleteData('alreadyPersonList', person)
         }
     }
+    // 更新人員資訊
+    function updatePerson(person: IPersonConfig) {
+        if (!person.id) {
+            return
+        }
+        const index = personConfig.value.allPersonList.findIndex((item: IPersonConfig) => item.id === person.id)
+        if (index !== -1) {
+            // 保留原有屬性，只更新傳入的屬性
+            const updatedPerson = { ...personConfig.value.allPersonList[index], ...person }
+            personConfig.value.allPersonList[index] = updatedPerson
+            personDb.updateData('allPersonList', toRaw(updatedPerson))
+        }
+    }
+
     // 刪除所有人員
     function deleteAllPerson() {
         personConfig.value.allPersonList = []
@@ -199,5 +213,6 @@ export const usePersonConfig = defineStore('person', () => {
         resetAlreadyPerson,
         setDefaultPersonList,
         reset,
+        updatePerson,
     }
 })
