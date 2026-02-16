@@ -16,7 +16,7 @@ import ImportExcelWorker from './importExcel.worker?worker'
 
 type IBasePersonConfig = Pick<IPersonConfig, 'uid' | 'name' | 'nickname' | 'clubName' | 'title' | 'avatar'>
 
-export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<HTMLInputElement> }) {
+export function useViewModel({ exportInputFileRef, addOnePersonDrawerRef }: { exportInputFileRef: Ref<HTMLInputElement>, addOnePersonDrawerRef: Ref<any> }) {
     const { t } = useI18n()
     const baseUrl = import.meta.env.BASE_URL.replace('./', '/')
     const toast = useToast()
@@ -24,8 +24,9 @@ export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<H
     const loading = inject(loadingKey)
     const personConfig = useStore().personConfig
     const { getAllPersonList: allPersonList, getAlreadyPersonList: alreadyPersonList } = storeToRefs(personConfig)
-    const tableColumnList = tableColumns({ handleDeletePerson: delPersonItem })
+    const tableColumnList = tableColumns({ handleDeletePerson: delPersonItem, handleEditPerson: editPersonItem })
     const addPersonModalVisible = ref(false)
+    const isEdit = ref(false)
     const singlePersonData = ref<IBasePersonConfig>({
         uid: '',
         name: '',
@@ -186,13 +187,26 @@ export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<H
     function delPersonItem(row: IPersonConfig) {
         personConfig.deletePerson(row)
     }
+
+    function editPersonItem(row: IPersonConfig) {
+        isEdit.value = true
+        singlePersonData.value = { ...row }
+        addOnePersonDrawerRef.value.showDrawer()
+    }
+
     function addOnePerson(addOnePersonDrawerRef: any, event: any) {
         event.preventDefault()
         // 表單中的驗證訊息清除
 
-        const personData = addOtherInfo([toRaw(singlePersonData.value)])
-        personData[0].id = uuidv4()
-        personConfig.addOnePerson(personData)
+        if (isEdit.value) {
+            personConfig.updatePerson(singlePersonData.value as IPersonConfig)
+            isEdit.value = false
+        }
+        else {
+            const personData = addOtherInfo([toRaw(singlePersonData.value)])
+            personData[0].id = uuidv4()
+            personConfig.addOnePerson(personData)
+        }
         // singlePersonData.value = {} as IBasePersonConfig
         addOnePersonDrawerRef.closeDrawer()
         singlePersonData.value = {} as IBasePersonConfig

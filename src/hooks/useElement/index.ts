@@ -57,7 +57,15 @@ export function useElementStyle(props: IUseElementStyle) {
     element.children[1].style.lineHeight = `${textSize * scale * 3}px`
     element.children[1].style.textShadow = `0 0 12px ${rgba(cardColor, 0.95)}`
     if (person.name) {
-        element.children[1].innerHTML = person.name.replace(/\s*\(/, '<br/>(')
+        if (person.name.includes('(眷屬)')) {
+            // 使用 display: block 將其變為塊級元素以便控制邊距
+            // margin-bottom: 20px 將其向上提起，避開下方的社名
+            // line-height: 1.2 調整行高，讓括號與名字更緊湊
+            element.children[1].innerHTML = person.name.replace('(眷屬)', `<span style="display: block; font-size: ${textSize * scale * 0.5}px; line-height: 1.2; margin-bottom: 30px;">(眷屬)</span>`)
+        }
+        else {
+            element.children[1].innerHTML = person.name.replace(/\s*\(/, '<br/>(')
+        }
     }
 
     element.children[2].style.fontSize = `${textSize * scale * 0.5}px`

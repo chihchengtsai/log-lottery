@@ -3,6 +3,7 @@ import i18n from '@/locales/i18n'
 
 interface IColumnsProps {
     handleDeletePerson: (row: IPersonConfig) => void
+    handleEditPerson: (row: IPersonConfig) => void
 }
 export function tableColumns(props: IColumnsProps) {
     return [
@@ -44,6 +45,13 @@ export function tableColumns(props: IColumnsProps) {
         {
             label: i18n.global.t('data.operation'),
             actions: [
+                {
+                    label: i18n.global.t('data.edit'),
+                    type: 'btn-primary',
+                    onClick: (row: IPersonConfig) => {
+                        props.handleEditPerson(row)
+                    },
+                },
                 {
                     label: i18n.global.t('data.delete'),
                     type: 'btn-error',

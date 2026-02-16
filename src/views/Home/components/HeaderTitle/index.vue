@@ -54,12 +54,12 @@ const { t } = useI18n()
       >
         {{ t('button.noInfoAndImport') }}
       </button>
-      <button
+      <!-- <button
         v-if="tableData.length <= 0" class="cursor-pointer btn btn-outline btn-secondary btn-lg"
         @click="setDefaultPersonList"
       >
         {{ t('button.useDefault') }}
-      </button>
+      </button> -->
     </div>
     <!-- 加載中 -->
     <div v-else class="flex gap-3 items-center">
