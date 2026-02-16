@@ -51,11 +51,16 @@ export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<H
             worker.postMessage(message)
         }
     }
-    /// 開始匯入
     async function startWorker(data: string) {
         loading?.show()
-        getExcelTemplateContent()
-        sendWorkerMessage({ type: 'start', data, templateData: await getExcelTemplateContent() })
+        const templateData = await getExcelTemplateContent()
+        const headerMap = {
+            name: i18n.global.t('data.name'),
+            nickname: i18n.global.t('data.nickname'),
+            clubName: i18n.global.t('data.clubName'),
+            title: i18n.global.t('data.title'),
+        }
+        sendWorkerMessage({ type: 'start', data, templateData, headerMap })
     }
     /**
      * 讀取用戶資料
@@ -65,41 +70,7 @@ export function useViewModel({ exportInputFileRef }: { exportInputFileRef: Ref<H
             worker.onmessage = (e) => {
                 if (e.data.type === 'done') {
                     personConfig.resetPerson()
-                    const mappedData = e.data.data.map((item: any) => {
-                        const newItem: any = { ...item }
-                        // Map localized headers to internal keys
-                        // ClubName/Department
-                        if (item[i18n.global.t('data.clubName')] !== undefined) {
-                            newItem.clubName = item[i18n.global.t('data.clubName')]
-                            delete newItem[i18n.global.t('data.clubName')]
-                        }
-
-                        // Title/Identity
-                        if (item[i18n.global.t('data.title')] !== undefined) {
-                            newItem.title = item[i18n.global.t('data.title')] // Localized Title
-                            delete newItem[i18n.global.t('data.title')]
-                        }
-
-                        // Map other fields if they are localized keys
-                        const nameKey = i18n.global.t('data.name')
-                        if (item[nameKey] !== undefined) {
-                            newItem.name = item[nameKey]
-                            delete newItem[nameKey]
-                        }
-                        const uidKey = i18n.global.t('data.number')
-                        if (item[uidKey] !== undefined) {
-                            newItem.uid = item[uidKey]
-                            delete newItem[uidKey]
-                        }
-                        const nicknameKey = i18n.global.t('data.nickname')
-                        if (item[nicknameKey] !== undefined) {
-                            newItem.nickname = item[nicknameKey]
-                            delete newItem[nicknameKey]
-                        }
-
-                        return newItem
-                    })
-                    personConfig.addNotPersonList(mappedData)
+                    personConfig.addNotPersonList(e.data.data)
                     // 提示匯入成功
                     toast.open({
                         message: t('error.importSuccess'),

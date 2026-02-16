@@ -291,7 +291,8 @@ export function useElementPosition(
         y: windowSize.height / 2,
     }
     const ruleObj = cardRule[totalCount] ?? createRuleForCount(totalCount)
-    const { scale, rule, length } = ruleObj
+    const scale = ruleObj.scale * 1.5
+    const { rule, length } = ruleObj
     // 計算縮放後的卡片尺寸
     const scaledCardWidth = cardSize.width * scale
     const scaledCardHeight = cardSize.height * scale
@@ -317,12 +318,15 @@ export function useElementPosition(
     const verticalSpacing = scaledCardHeight * 1.1 // 垂直間距基於縮放後的高度
     // 計算整體高度並調整居中
     const totalHeight = (length - 1) * verticalSpacing + scaledCardHeight // 包含卡片本身的高度
-    const centerYOffset = -totalHeight / 2
 
-    // 修改此處邏輯，確保當length=2時，兩行圍繞中心點對稱分佈
-    centerPosition.y = windowSize.height / 2 - totalHeight / 2
+    // 設置整體垂直偏移，使其避開底部按鈕（按鈕位於底部 50px，約 Y = -450 至 -500）
+    // 我們將整塊卡片的中心點定在 Y = 100（中心點上方），確保即使有三行卡片，最下方的卡片也不會觸及按鈕
+    const yBaseline = 100
 
-    yTable = centerPosition.y + currentRow * verticalSpacing + centerYOffset // 添加卡片高度的一半作爲修正
+    // 第一行 (currentRow = 0) 應該在最上面
+    // 在 Three.js 中，Y 軸向上為正，所以最上面的 Y 值應該最大
+    // yTable 的計算方式：從中心基準點 (yBaseline) 開始，加上總高度的一半，再減去當前行累積的高度偏移
+    yTable = yBaseline + (totalHeight / 2) - (currentRow * verticalSpacing) - (scaledCardHeight / 2)
     // 計算當前行的水平居中偏移
     const horizontalSpacing = scaledCardWidth * 1.2 // 水平間距基於縮放後的寬度
     const rowWidth = (cardsInCurrentRow - 1) * horizontalSpacing
