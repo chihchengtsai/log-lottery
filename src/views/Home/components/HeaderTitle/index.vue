@@ -13,12 +13,15 @@ interface Props {
     setDefaultPersonList: () => void
     isInitialDone: boolean
     titleFont: string
+    currentStatus: number
+    currentPrize: any
+    isShowPrize: boolean
     titleFontSyncGlobal: boolean
 }
 
 const props = defineProps<Props>()
 const router = useRouter()
-const { tableData, textSize, textColor, topTitle, setDefaultPersonList, titleFont, titleFontSyncGlobal } = toRefs(props)
+const { tableData, textSize, textColor, topTitle, setDefaultPersonList, titleFont, titleFontSyncGlobal, currentStatus, currentPrize, isShowPrize } = toRefs(props)
 const isTextColor = computed(() => {
     return rgbToHex(textColor.value) !== '#00000000'
 })
@@ -35,6 +38,27 @@ const titleStyle = computed(() => {
 
     return style
 })
+
+const prizeNameStyle = computed(() => {
+    const style: CSSProperties = {
+        fontSize: `${textSize.value * 2.5}px`, // Larger font size for prize name
+        fontWeight: 'bold',
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        zIndex: 100,
+        whiteSpace: 'nowrap',
+    }
+    if (!titleFontSyncGlobal.value) {
+        style.fontFamily = titleFont.value
+    }
+    if (isTextColor.value) {
+        style.color = textColor.value
+    }
+    return style
+})
+
 const { t } = useI18n()
 </script>
 
@@ -67,12 +91,37 @@ const { t } = useI18n()
       <span>{{ t('button.loading') }}</span>
     </div>
   </div>
+
+  <!-- Prize Name Animation -->
+  <div
+    v-if="isShowPrize && currentPrize"
+    class="prize-name-container"
+    :style="prizeNameStyle"
+    :class="{ 'animate-pulse bg-linear-to-r from-primary via-secondary to-accent bg-clip-text text-transparent': !isTextColor }"
+  >
+    {{ currentPrize.name }}
+  </div>
 </template>
 
 <style scoped lang="scss">
 .header-title {
     -webkit-animation: tracking-in-expand-fwd 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
     animation: tracking-in-expand-fwd 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+}
+
+.prize-name-container {
+    animation: slide-in-right 0.8s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@keyframes slide-in-right {
+  0% {
+    transform: translate(100vw, -50%);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
 }
 
 @-webkit-keyframes tracking-in-expand-fwd {

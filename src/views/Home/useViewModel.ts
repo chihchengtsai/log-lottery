@@ -76,6 +76,7 @@ export function useViewModel() {
 
     // 抽獎音樂相關
     const lotteryMusic = ref<HTMLAudioElement | null>(null)
+    const isShowPrize = ref(false)
 
     function initThreeJs() {
         const felidView = 40
@@ -546,6 +547,7 @@ export function useViewModel() {
         startLotteryMusic()
 
         currentStatus.value = LotteryStatus.running
+        isShowPrize.value = true
         rollBall(10, 3000)
         if (definiteTime.value) {
             setTimeout(() => {
@@ -562,6 +564,7 @@ export function useViewModel() {
         if (!canOperate.value) {
             return
         }
+        isShowPrize.value = false
         // 停止抽獎音樂
         stopLotteryMusic()
 
@@ -909,5 +912,7 @@ export function useViewModel() {
         isInitialDone,
         titleFont,
         titleFontSyncGlobal,
+        currentPrize,
+        isShowPrize,
     }
 }
