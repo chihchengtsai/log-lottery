@@ -23,7 +23,11 @@ export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, __dirname)
     const chunkName = mode === 'prebuild' ? '[name]' : 'chunk'
     return {
+<<<<<<< HEAD
         base: (mode === 'file' || process.env.TAURI_ENV_PLATFORM || process.env.VERCEL) ? '/' : '/log-lottery/',
+=======
+        base: (mode === 'file' || process.env.TAURI_ENV_PLATFORM) ? '/' : '/log-lottery/',
+>>>>>>> 903876142ce7858ee21c74b3379100f1fb3b2834
         plugins: [
             vue(),
             tailwindcss(),
