@@ -546,62 +546,6 @@ export const defaultPersonList = <IPersonConfigWithoutUuid[]>
     ]
 
 export const defaultMusicList = [
-    {
-        id: `Geoff Knorr - China (The Industrial Era).ogg${new Date().getTime().toString()}`,
-        name: 'Geoff Knorr - China (The Industrial Era).ogg',
-        url: `${originUrl}/resource/audio/Geoff Knorr - China (The Industrial Era).ogg`,
-    },
-    {
-        id: `Geoff Knorr&Phill Boucher - China (The Atomic Era).ogg${new Date().getTime().toString()}`,
-        name: 'Geoff Knorr&Phill Boucher - China (The Atomic Era).ogg',
-        url: `${originUrl}/resource/audio/Geoff Knorr&Phill Boucher - China (The Atomic Era).ogg`,
-    },
-    {
-        id: `Radetzky March.mp3${new Date().getTime().toString()}`,
-        name: 'Radetzky March.mp3',
-        url: `${originUrl}/resource/audio/Radetzky March.mp3`,
-    },
-    {
-        id: `Shanghai.mp3${new Date().getTime().toString()}`,
-        name: 'Shanghai.mp3',
-        url: `${originUrl}/resource/audio/Shanghai.mp3`,
-    },
-    {
-        id: `Waltz No.2.mp3${new Date().getTime().toString()}`,
-        name: 'Waltz No.2.mp3',
-        url: `${originUrl}/resource/audio/Waltz No.2.mp3`,
-    },
-    {
-        id: `WildChinaTheme.mp3${new Date().getTime().toString()}`,
-        name: 'WildChinaTheme.mp3',
-        url: `${originUrl}/resource/audio/WildChinaTheme.mp3`,
-    },
-    {
-        id: `邊程&房東的貓 - 美好事物-再遇少年.ogg${new Date().getTime().toString()}`,
-        name: '邊程&房東的貓 - 美好事物-再遇少年.ogg',
-        url: `${originUrl}/resource/audio/邊程&房東的貓 - 美好事物-再遇少年.ogg`,
-    },
-    {
-        id: `大喬小喬 - 相見難別亦難.ogg${new Date().getTime().toString()}`,
-        name: '大喬小喬 - 相見難別亦難.ogg',
-        url: `${originUrl}/resource/audio/大喬小喬 - 相見難別亦難.ogg`,
-    },
-    {
-        id: `你要跳舞嗎-新褲子.mp3${new Date().getTime().toString()}`,
-        name: '你要跳舞嗎-新褲子.mp3',
-        url: `${originUrl}/resource/audio/你要跳舞嗎-新褲子.mp3`,
-    },
-    {
-        id: `生命-聲音玩具.mp3${new Date().getTime().toString()}`,
-        name: '生命-聲音玩具.mp3',
-        url: `${originUrl}/resource/audio/生命-聲音玩具.mp3`,
-    },
-    {
-        id: `與非門 - Happy New Year.ogg${new Date().getTime().toString()}`,
-        name: '與非門 - Happy New Year.ogg',
-        url: `${originUrl}/resource/audio/與非門 - Happy New Year.ogg`,
-    },
-
 ]
 
 export const defaultPrizeList = <IPrizeConfig[]>[
@@ -786,7 +730,7 @@ export const defaultPatternList = [21, 38, 55, 54, 53, 70, 87, 88, 89, 23, 40, 5
 export const defaultServerHostList = [
     {
         id: 'default',
-        name: '默認服務器',
+        name: '預設服務器',
         value: 'default',
         host: 'https://to2026.xyz:8080',
     },
