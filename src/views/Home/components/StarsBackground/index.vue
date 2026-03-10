@@ -61,10 +61,10 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div v-if="homeBackground.url" class="home-background w-screen h-screen overflow-hidden">
-    <img :src="imgUrl" class="w-full h-full object-cover" alt="">
+  <div v-if="homeBackground.url" class="home-background fixed inset-0 z-0 overflow-hidden bg-black">
+    <img :src="imgUrl" class="w-full h-full object-contain" alt="">
   </div>
-  <div v-else ref="starRef" class="w-screen h-screen overflow-hidden" />
+  <div v-else ref="starRef" class="fixed inset-0 z-0 overflow-hidden" />
 </template>
 
 <style lang='scss' scoped>

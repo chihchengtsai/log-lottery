@@ -16,6 +16,7 @@ const { getTopTitle: topTitle, getTextColor: textColor, getTextSize: textSize, g
 </script>
 
 <template>
+  <StarsBackground :home-background="homeBackground" />
   <HeaderTitle
     :table-data="tableData"
     :text-size="textSize"
@@ -29,8 +30,9 @@ const { getTopTitle: topTitle, getTextColor: textColor, getTextSize: textSize, g
     :current-prize="currentPrize"
     :is-show-prize="isShowPrize"
   />
-  <div id="container" ref="containerRef" class="3dContainer">
+  <div id="container" ref="containerRef" class="3dContainer fixed inset-0 z-10 pointer-events-none">
     <OptionButton
+      class="pointer-events-auto"
       :current-status="currentStatus"
       :table-data="tableData"
       :enter-lottery="enterLottery"
@@ -40,8 +42,7 @@ const { getTopTitle: topTitle, getTextColor: textColor, getTextSize: textSize, g
       :quit-lottery="quitLottery"
     />
   </div>
-  <StarsBackground :home-background="homeBackground" />
-  <PrizeList class="absolute left-0 top-32" />
+  <PrizeList class="absolute left-0 top-32 z-20" />
 </template>
 
 <style scoped lang="scss">
