@@ -7,6 +7,7 @@ interface WorkerMessage {
     data: any
     templateData: any
     headerMap: {
+        number: string
         name: string
         nickname: string
         clubName: string
@@ -30,6 +31,7 @@ globalThis.onmessage = async (e: MessageEvent<WorkerMessage>) => {
 
                 const import_data = excelData.map((row: any) => {
                     return {
+                        uid: row[headerMap.number],
                         name: row[headerMap.name],
                         nickname: row[headerMap.nickname],
                         clubName: row[headerMap.clubName],

@@ -56,6 +56,7 @@ export function useViewModel({ exportInputFileRef, addOnePersonDrawerRef }: { ex
         loading?.show()
         const templateData = await getExcelTemplateContent()
         const headerMap = {
+            number: i18n.global.t('data.number'),
             name: i18n.global.t('data.name'),
             nickname: i18n.global.t('data.nickname'),
             clubName: i18n.global.t('data.clubName'),
