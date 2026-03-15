@@ -6,6 +6,8 @@ import { computed, ref, toRaw } from 'vue'
 import { IndexDb } from '@/utils/dexie'
 import { defaultPersonList } from './data'
 import { usePrizeConfig } from './prizeConfig'
+import { sendWinnerWebhook } from '@/api/webhook'
+
 
 // 獲取IPersonConfig的key組成數組
 export const personListKey = Object.keys(defaultPersonList[0])
@@ -97,6 +99,9 @@ export const usePersonConfig = defineStore('person', () => {
             personDb.updateData('allPersonList', toRaw(person))
             personDb.setData('alreadyPersonList', toRaw(person))
         })
+        if (prize) {
+            sendWinnerWebhook(personList, prize.name)
+        }
     }
     // 從已中獎移動到未中獎
     function moveAlreadyToNot(person: IPersonConfig) {
@@ -121,6 +126,9 @@ export const usePersonConfig = defineStore('person', () => {
             )
         }
         personDb.deleteData('alreadyPersonList', person)
+        // 發送 Webhook 取消通知
+        const prizeName = person.prizeName && person.prizeName.length > 0 ? person.prizeName[0] : '未知獎項'
+        sendWinnerWebhook([person], prizeName, true)
     }
     // 刪除指定人員
     function deletePerson(person: IPersonConfig) {
