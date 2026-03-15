@@ -28,8 +28,9 @@ export async function sendWinnerWebhook(
     }
 
     const payload: IWebhookPayload[] = personList.map((person) => ({
-        uid: String(person.id),
+        uid: person.uid,
         prize_name: prizeName,
+
 
         won_at: new Date().toISOString(),
         is_cancelled: isCancelled,
