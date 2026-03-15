@@ -163,6 +163,22 @@ export const usePrizeConfig = defineStore('prize', {
                 } as IPrizeConfig,
             }
         },
+        // 重設所有獎項的已抽取數量
+        resetPrizeUsedCount() {
+            this.prizeConfig.prizeList.forEach((prize) => {
+                prize.isUsedCount = 0
+                prize.isUsed = false
+                if (prize.separateCount.countList.length > 0) {
+                    prize.separateCount.countList.forEach((item) => {
+                        item.isUsedCount = 0
+                    })
+                }
+            })
+            // 重設當前獎項為清單中第一個
+            if (this.prizeConfig.prizeList.length > 0) {
+                this.prizeConfig.currentPrize = this.prizeConfig.prizeList[0]
+            }
+        },
     },
     persist: {
         enabled: true,

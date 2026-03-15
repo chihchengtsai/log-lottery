@@ -188,6 +188,9 @@ export const usePersonConfig = defineStore('person', () => {
         personDb.deleteAll('allPersonList')
         personDb.setAllData('allPersonList', allPersonListRaw)
         personDb.deleteAll('alreadyPersonList')
+
+        // 額外重設獎項抽取進度
+        usePrizeConfig().resetPrizeUsedCount()
     }
     function setDefaultPersonList() {
         personConfig.value.allPersonList = defaultPersonList.map((item: any) => {
