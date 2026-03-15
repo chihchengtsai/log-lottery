@@ -44,7 +44,12 @@ export async function sendWinnerWebhook(
             },
         })
         console.log(`Webhook 發送成功 (${isCancelled ? '取消' : '登記'}):`, payload)
-    } catch (error) {
-        console.error('Webhook 發送失敗:', error)
+    } catch (error: any) {
+        console.error('Webhook 發送失敗:', {
+            message: error.message,
+            response: error.response?.data,
+            status: error.response?.status,
+            payload
+        })
     }
 }

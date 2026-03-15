@@ -108,26 +108,30 @@ export const usePersonConfig = defineStore('person', () => {
         if (person.id === undefined || person.id == null) {
             return
         }
-        const alreadyPersonListLength = personConfig.value.alreadyPersonList.length
-        for (let i = 0; i < personConfig.value.allPersonList.length; i++) {
-            if (person.id === personConfig.value.allPersonList[i].id) {
-                personConfig.value.allPersonList[i].isWin = false
-                personConfig.value.allPersonList[i].prizeName = []
-                personConfig.value.allPersonList[i].prizeTime = []
-                personConfig.value.allPersonList[i].prizeId = []
-                personDb.updateData('allPersonList', toRaw(personConfig.value.allPersonList[i]))
-                break
-            }
-        }
-        const alreadyPersonListRaw = toRaw(personConfig.value.alreadyPersonList)
-        for (let i = 0; i < alreadyPersonListLength; i++) {
-            personConfig.value.alreadyPersonList = alreadyPersonListRaw.filter((item: IPersonConfig) =>
-                item.id !== person.id,
-            )
-        }
-        personDb.deleteData('alreadyPersonList', person)
-        // 發送 Webhook 取消通知
+
+        // 先獲取當前的獎項名稱，因為後續會清空
         const prizeName = person.prizeName && person.prizeName.length > 0 ? person.prizeName[0] : '未知獎項'
+
+        // 更新 allPersonList 中的狀態
+        const allPersonIndex = personConfig.value.allPersonList.findIndex(item => item.id === person.id)
+        if (allPersonIndex !== -1) {
+            const target = personConfig.value.allPersonList[allPersonIndex]
+            target.isWin = false
+            target.prizeName = []
+            target.prizeTime = []
+            target.prizeId = []
+            personDb.updateData('allPersonList', toRaw(target))
+        }
+
+        // 從 alreadyPersonList 中移除
+        personConfig.value.alreadyPersonList = personConfig.value.alreadyPersonList.filter((item: IPersonConfig) =>
+            item.id !== person.id,
+        )
+
+        personDb.deleteData('alreadyPersonList', person)
+
+        // 發送 Webhook 取消通知
+        console.log(`正在發送取消中獎通知: ${person.uid} - ${prizeName}`)
         sendWinnerWebhook([person], prizeName, true)
     }
     // 刪除指定人員
