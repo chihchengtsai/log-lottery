@@ -116,6 +116,67 @@ export function usePrizeConfig() {
         prizeList.value = []
         toast.success(i18n.global.t('error.success'))
     }
+
+    async function importPrizesFromExcel(file: File) {
+        const XLSX = await import('xlsx')
+        const reader = new FileReader()
+        reader.onload = (e) => {
+            const data = e.target?.result
+            const workbook = XLSX.read(data, { type: 'binary' })
+            const sheetName = 'Prizes'
+            const worksheet = workbook.Sheets[sheetName]
+
+            if (!worksheet) {
+                toast.error(`找不到名稱為 "${sheetName}" 的工作表`)
+                return
+            }
+
+            // 轉換為陣列，header: 1 表示返回二維陣列
+            const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 }) as any[]
+
+            // 跳過第一列標題
+            const dataRows = rows.slice(1)
+
+            const newPrizes: IPrizeConfig[] = dataRows
+                .filter(row => row[1] && row[3]) // 過濾掉名稱或數量為空的列
+                .map((row, index) => {
+                    const name = String(row[1])
+                    const count = Number(row[3]) || 1
+
+                    return {
+                        id: (new Date().getTime() + index).toString(),
+                        name,
+                        sort: 0,
+                        isAll: false,
+                        count,
+                        isUsedCount: 0,
+                        picture: {
+                            id: '',
+                            name: '',
+                            url: '',
+                        },
+                        separateCount: {
+                            enable: false,
+                            countList: [],
+                        },
+                        desc: '',
+                        isUsed: false,
+                        isShow: true,
+                        frequency: 1,
+                    }
+                })
+
+            if (newPrizes.length === 0) {
+                toast.error('未讀取到有效的獎項資料')
+                return
+            }
+
+            prizeList.value.push(...newPrizes)
+            toast.success(`成功匯入 ${newPrizes.length} 個獎項`)
+        }
+        reader.readAsBinaryString(file)
+    }
+
     onMounted(() => {
         getImageDbStore()
     })
@@ -128,6 +189,7 @@ export function usePrizeConfig() {
         resetDefault,
         delAll,
         delItem,
+        importPrizesFromExcel,
         prizeList,
         currentPrize,
         selectedPrize,

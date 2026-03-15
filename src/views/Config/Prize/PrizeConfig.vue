@@ -1,14 +1,31 @@
 <script setup lang='ts'>
 import { Grip } from 'lucide-vue-next'
 import { VueDraggable } from 'vue-draggable-plus'
+import { storeToRefs } from 'pinia'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { HoverTip } from '@/components/index'
 import EditSeparateDialog from '@/components/NumberSeparate/EditSeparateDialog.vue'
 import PageHeader from '@/components/PageHeader/index.vue'
 import { usePrizeConfig } from './usePrizeConfig'
 
-const { addPrize, resetDefault, delAll, delItem, prizeList, currentPrize, selectedPrize, submitData, changePrizePerson, changePrizeStatus, selectPrize, localImageList } = usePrizeConfig()
+const { addPrize, resetDefault, delAll, delItem, prizeList, currentPrize, selectedPrize, submitData, changePrizePerson, changePrizeStatus, selectPrize, localImageList, importPrizesFromExcel } = usePrizeConfig()
 const { t } = useI18n()
+
+const fileInput = ref<HTMLInputElement | null>(null)
+function triggerImport() {
+  fileInput.value?.click()
+}
+
+function handleFileChange(e: Event) {
+  const file = (e.target as HTMLInputElement).files?.[0]
+  if (file) {
+    importPrizesFromExcel(file)
+    if (fileInput.value) {
+      fileInput.value.value = ''
+    }
+  }
+}
 </script>
 
 <template>
@@ -25,6 +42,16 @@ const { t } = useI18n()
           <button class="btn btn-error btn-sm" @click="delAll">
             {{ t('button.allDelete') }}
           </button>
+          <button class="btn btn-neutral btn-sm" @click="triggerImport">
+            匯入獎項
+          </button>
+          <input
+            ref="fileInput"
+            type="file"
+            class="hidden"
+            accept=".xlsx, .xls"
+            @change="handleFileChange"
+          >
         </div>
       </template>
       <template #alerts>
